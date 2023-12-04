@@ -38,3 +38,6 @@ class Database
         return $this->pdo->query($sql);
     }
 }
+
+// $db = new Database();
+// $db->connectDB();
