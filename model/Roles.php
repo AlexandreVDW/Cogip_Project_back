@@ -24,4 +24,61 @@ class Roles
         $date = new DateTime($date);
         return $date->format('d-m-Y H:i:s');
     }
+
+    public function getAllRoles()
+    {
+        $pdo = new Database();
+        $conn = $pdo->connect();
+        $sql = "SELECT * FROM roles";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
+    public function getOneRole($id)
+    {
+        $pdo = new Database();
+        $conn = $pdo->connect();
+        $sql = "SELECT * FROM roles WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
+    }
+
+    public function setNewRoles($name, $created_at, $updated_at)
+    {
+        $pdo = new Database();
+        $conn = $pdo->connect();
+        $sql = "INSERT INTO roles (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':created_at', $created_at);
+        $stmt->bindValue(':updated_at', $updated_at);
+        $stmt->execute();
+    }
+
+    public function updateRoles($id, $name, $updated_at)
+    {
+        $pdo = new Database();
+        $conn = $pdo->connect();
+        $sql = "UPDATE roles SET name = :name, updated_at = :updated_at WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':updated_at', $updated_at);
+        $stmt->execute();
+    }
+
+    public function deleteRoles($id)
+    {
+        $pdo = new Database();
+        $conn = $pdo->connect();
+        $sql = "DELETE FROM roles WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    }
 }
