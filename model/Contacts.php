@@ -3,28 +3,11 @@
 declare(strict_types=1);
 
 namespace App\model;
+use App\utils\Database;
+use PDO;
 
 class Contacts
 {
-    public int $id;
-    public string $name;
-    public int $company_id;
-    public string $email;
-    public string $phone;
-    public datetime $created_at;
-    public datetime $updated_at;
-
-    public function __construct(int $id, string $name, int $company_id, string $email, string $phone, datetime $created_at, datetime $updated_at)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->company_id = $company_id;
-        $this->email = $email;
-        $this->phone = $phone;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
-    }
-
     public function formatDate($date)
     {
         $date = new DateTime($date);
@@ -33,31 +16,31 @@ class Contacts
 
     public function getAllContacts()
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM contacts";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $contacts = $stmt->fetchAll();
+        $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $contacts;
     }
 
     public function getOneContact($id)
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM contacts WHERE id = :id";
         $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $contact = $stmt->fetch();
+        $contact = $stmt->fetch(PDO::FETCH_ASSOC);
         return $contact;
     }
 
     public function setNewContact ()
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
@@ -71,8 +54,8 @@ class Contacts
 
     public function updateContact($id, $name, $company_id, $email, $phone, $updated_at)
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "UPDATE contacts SET name = :name, company_id = :company_id, email = :email, phone = :phone, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -86,8 +69,8 @@ class Contacts
 
     public function deleteContact($id)
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "DELETE FROM contacts WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);

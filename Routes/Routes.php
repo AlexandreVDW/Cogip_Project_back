@@ -5,6 +5,7 @@ namespace App\Routes;
 use Bramus\Router\Router;
 use App\Controllers\HomeController;
 use App\Controllers\InvoicesController;
+use App\Controllers\ContactsController;
 
 $router = new Router();
 
@@ -40,5 +41,35 @@ $router->mount('/invoices', function () use ($router) {
         (new InvoicesController)->deleteInvoices($id);
     });
 });
+
+// Subrouting
+$router->mount('/contacts', function () use ($router) {
+    
+        // will result in '/contacts'
+        $router->get('/', function () {
+            (new ContactsController)->Contacts();
+        });
+    
+        // will result in '/contacts/id'
+        $router->get('/(\d+)', function ($id) {
+            (new ContactsController)->Contact($id);
+        });
+    
+        // will result in '/contacts/id'
+        $router->post('/', function () {
+            (new ContactsController)->setNewContacts();
+        });
+    
+        // will result in '/contacts/id'
+        $router->put('/(\d+)', function ($id) {
+            (new ContactsController)->updateContacts($id);
+        });
+    
+        // will result in '/contacts/id'
+        $router->delete('/(\d+)', function ($id) {
+            (new ContactsController)->deleteContacts($id);
+        });
+});
+
 
 $router->run();

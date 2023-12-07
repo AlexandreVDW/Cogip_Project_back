@@ -18,7 +18,7 @@ class Invoices
     {
         $pdo = new Database();
         $conn = $pdo->connectDB();
-        $sql = "SELECT * FROM invoices";
+        $sql = "SELECT invoices.id, invoices.ref, invoices.id_company, companies.name, invoices.created_at, invoices.updated_at FROM invoices INNER JOIN companies ON invoices.id_company = companies.id";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +29,7 @@ class Invoices
     {
         $pdo = new Database();
         $conn = $pdo->connectDB();
-        $sql = "SELECT * FROM invoices WHERE id = :id";
+        $sql = "SELECT invoices.id, invoices.ref, invoices.id_company, companies.name, invoices.created_at, invoices.updated_at FROM invoices INNER JOIN companies ON invoices.id_company = companies.id WHERE invoices.id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
