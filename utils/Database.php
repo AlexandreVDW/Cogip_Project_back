@@ -7,6 +7,7 @@ namespace App\utils;
 use PDO;
 use PDOException;
 
+
 class Database 
 {
     private Log $log;
