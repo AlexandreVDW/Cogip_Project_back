@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\core\Controllers;
-use App\model\Types;
+use App\model\RolesPermission;
 
 class RolesPermissionController
 {
