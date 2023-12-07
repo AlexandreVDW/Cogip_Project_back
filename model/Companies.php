@@ -20,7 +20,7 @@ class Companies
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM companies";
+        $sql = "SELECT companies.id, companies.name, companies.type_id, types.name as types_name, companies.country, companies.tva, companies.created_at, companies.updated_at FROM companies INNER JOIN types ON companies.type_id = types.id";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
         $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ class Companies
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM companies WHERE id = :id";
+        $sql = "SELECT companies.id, companies.name, companies.type_id, types.name as types_name, companies.country, companies.tva, companies.created_at, companies.updated_at FROM companies INNER JOIN types ON companies.type_id = types.id WHERE companies.id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();

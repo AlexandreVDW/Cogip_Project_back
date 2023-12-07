@@ -19,7 +19,7 @@ class RolesPermission
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM roles_permission";
+        $sql = "SELECT roles_permission.id, roles_permission.permission_id, permissions.name as permissions_name, roles_permission.role_id, roles.name as roles_name FROM roles_permission INNER JOIN permissions ON roles_permission.permission_id = permissions.id INNER JOIN roles ON roles_permission.role_id = roles.id";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
         $rolespermission = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +30,7 @@ class RolesPermission
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM roles_permission WHERE id = :id";
+        $sql = "SELECT roles_permission.id, roles_permission.permission_id, permissions.name as permissions_name, roles_permission.role_id, roles.name as roles_name FROM roles_permission INNER JOIN permissions ON roles_permission.permission_id = permissions.id INNER JOIN roles ON roles_permission.role_id = roles.id WHERE roles_permission.id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
