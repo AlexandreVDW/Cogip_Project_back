@@ -20,7 +20,7 @@ class Users
     {
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT users.id, users.first_name, users.last_name, users.role_id, roles.name as roles_name, users.email, users.password, users.created_ad, users.updated_at FROM users INNER JOIN roles ON users.role_id = roles.id";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ class Users
     {
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT * FROM users WHERE id = :id";
+        $sql = "SELECT users.id, users.first_name, users.last_name, users.role_id, roles.name as roles_name, users.email, users.password, users.created_ad, users.updated_at FROM users INNER JOIN roles ON users.role_id = roles.id WHERE users.id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
