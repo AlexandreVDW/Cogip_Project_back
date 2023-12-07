@@ -2,17 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Core\Controller;
+use App\core\Controllers;
 use App\model\Companies;
 
-class CompagniesController
+class CompaniesController
 {
     public function Companies()
     {
         $companies = new Companies();
-        $data = $companies->getAllCompanies();
-        return $this->view('companies', $data);
+        $companies = $companies->getAllCompanies();
+        header('Content-Type: application/json');
+        echo json_encode(['companies' => $companies]);
     }
-
-
 }
