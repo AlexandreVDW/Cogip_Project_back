@@ -4,28 +4,11 @@ declare(strict_types=1);
 
 namespace App\model;
 
-class User 
-{
-    public int $id;
-    public string $first_name;
-    public int $role_id;
-    public string $last_name;
-    public string $email;
-    public string $password;
-    public datetime $created_at;
-    public datetime $updated_at;
+use App\utils\Database;
+use PDO;
 
-    public function __construct(int $id, string $first_name, int $role_id, string $last_name, string $email, string $password, datetime $created_at, datetime $updated_at)
-    {
-        $this->id = $id;
-        $this->first_name = $first_name;
-        $this->role_id = $role_id;
-        $this->last_name = $last_name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
-    }
+class Users 
+{
     
     public function formatDate($date)
     {
@@ -36,30 +19,30 @@ class User
     public function getAllUsers()
     {
         $db = new Database();
-        $connect = $pdo -> connect();
+        $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM users";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $users = $stmt->fetchAll();
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $users;
     }
 
     public function getOneUser($id)
     {
         $db = new Database();
-        $connect = $pdo -> connect();
+        $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM users WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $user = $stmt->fetch();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
 
     public function setNewUser ()
     {
         $db = new Database();
-        $connect = $pdo -> connect();
+        $connect = $pdo -> connectDB();
         $sql = "INSERT INTO users (first_name, role_id, last_name, email, password, created_at, updated_at) VALUES (:first_name, :role_id, :last_name, :email, :password, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':first_name', $this->first_name);
@@ -75,7 +58,7 @@ class User
     public function updateUser ($id, $first_name, $role_id, $last_name, $email, $password, $updated_at)
     {
         $db = new Database();
-        $connect = $pdo -> connect();
+        $connect = $pdo -> connectDB();
         $sql = "UPDATE users SET first_name = :first_name, role_id = :role_id, last_name = :last_name, email = :email, password = :password, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -88,7 +71,7 @@ class User
         $stmt->execute();
     }
 
-    public function deleteUser ($id)
+    public function deleteUserDB ($id)
     {
         $db = new Database();
         $connect = $pdo -> connect();
