@@ -4,21 +4,11 @@ declare(strict_types=1);
 
 namespace App\model;
 
+use App\utils\Database;
+use PDO;
+
 class Permission
 {
-    public int $id;
-    public string $name;
-    public datetime $created_at;
-    public datetime $updated_at;
-
-    public function __construct(int $id, string $name, datetime $created_at, datetime $updated_at)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
-    }
-
     public function formatDate($date)
     {
         $date = new DateTime($date);
@@ -27,8 +17,8 @@ class Permission
 
     public function getAllPermissions()
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM permissions";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
@@ -38,8 +28,8 @@ class Permission
 
     public function getOnePermission($id)
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM permissions WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -50,8 +40,8 @@ class Permission
 
     public function setNewPermission ()
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "INSERT INTO permissions (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $this->name);
@@ -62,8 +52,8 @@ class Permission
 
     public function updatePermission ($id, $name, $updated_at)
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "UPDATE permissions SET name = :name, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $this->name);
@@ -74,8 +64,8 @@ class Permission
 
     public function deletePermission($id)
     {
-        $db = new Database();
-        $connect = $pdo -> connect();
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
         $sql = "DELETE FROM permissions WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);

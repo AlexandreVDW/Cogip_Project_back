@@ -9,6 +9,7 @@ use App\Controllers\ContactsController;
 use App\Controllers\UserController;
 use App\Controllers\CompaniesController;
 use App\Controllers\RolesController;
+use App\Controllers\PermissionController;
 
 $router = new Router();
 
@@ -158,6 +159,35 @@ $router->mount('/roles', function () use ($router) {
     // will result in '/roles/id'
     $router->delete('/(\d+)', function ($id) {
         (new RolesController)->deleteRoles($id);
+    });
+});
+
+//subrouting
+$router->mount('/permissions', function () use ($router) {
+    
+    // will result in '/permissions'
+    $router->get('/', function () {
+        (new PermissionController)->Permissions();
+    });
+
+    // will result in '/permissions/id'
+    $router->get('/(\d+)', function ($id) {
+        (new PermissionController)->Permission($id);
+    });
+
+    // will result in '/permissions/id'
+    $router->post('/', function () {
+        (new PermissionController)->setNewPermission();
+    });
+
+    // will result in '/permissions/id'
+    $router->put('/(\d+)', function ($id) {
+        (new PermissionController)->updatePermission($id);
+    });
+
+    // will result in '/permissions/id'
+    $router->delete('/(\d+)', function ($id) {
+        (new PermissionController)->deletePermission($id);
     });
 });
 
