@@ -42,9 +42,9 @@ class Companies
     public function setNewCompanies($name, $type_id, $country, $tva, $created_at, $updated_at)
     {
         $pdo = new Database();
-        $conn = $pdo->connectDB();
+        $connect = $pdo->connectDB();
         $sql = "INSERT INTO companies (name, type_id, country, tva, created_at, updated_at) VALUES (:name, :type_id, :country, :tva, :created_at, :updated_at)";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':type_id', $type_id);
         $stmt->bindValue(':country', $country);
@@ -55,9 +55,9 @@ class Companies
     public function updateCompanies($id, $name, $type_id, $country, $tva, $updated_at)
     {
         $pdo = new Database();
-        $conn = $pdo->connectDB();
+        $connect = $pdo->connectDB();
         $sql = "UPDATE companies SET name = :name, type_id = :type_id, country = :country, tva = :tva, updated_at = :updated_at WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':type_id', $type_id);
@@ -70,9 +70,9 @@ class Companies
     public function deleteCompanies($id)
     {
         $pdo = new Database();
-        $conn = $pdo->connectDB();
+        $connect = $pdo->connectDB();
         $sql = "DELETE FROM companies WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
     }

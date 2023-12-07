@@ -8,6 +8,7 @@ use App\Controllers\InvoicesController;
 use App\Controllers\ContactsController;
 use App\Controllers\UserController;
 use App\Controllers\CompaniesController;
+use App\Controllers\RolesController;
 
 $router = new Router();
 
@@ -128,6 +129,35 @@ $router->mount('/companies', function () use ($router) {
     // will result in '/companies/id'
     $router->delete('/(\d+)', function ($id) {
         (new CompaniesController)->deleteCompanies($id);
+    });
+});
+
+//subrouting
+$router->mount('/roles', function () use ($router) {
+    
+    // will result in '/roles'
+    $router->get('/', function () {
+        (new RolesController)->Roles();
+    });
+
+    // will result in '/roles/id'
+    $router->get('/(\d+)', function ($id) {
+        (new RolesController)->Role($id);
+    });
+
+    // will result in '/roles/id'
+    $router->post('/', function () {
+        (new RolesController)->setNewRoles();
+    });
+
+    // will result in '/roles/id'
+    $router->put('/(\d+)', function ($id) {
+        (new RolesController)->updateRoles($id);
+    });
+
+    // will result in '/roles/id'
+    $router->delete('/(\d+)', function ($id) {
+        (new RolesController)->deleteRoles($id);
     });
 });
 
