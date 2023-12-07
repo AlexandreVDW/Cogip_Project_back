@@ -7,6 +7,7 @@ use App\Controllers\HomeController;
 use App\Controllers\InvoicesController;
 use App\Controllers\ContactsController;
 use App\Controllers\UserController;
+use App\Controllers\CompaniesController;
 
 $router = new Router();
 
@@ -99,6 +100,35 @@ $router->mount('/users', function () use ($router) {
         $router->delete('/(\d+)', function ($id) {
             (new UserController)->deleteUsers($id);
         });
+});
+
+// Subrouting
+$router->mount('/companies', function () use ($router) {
+    
+    // will result in '/companies'
+    $router->get('/', function () {
+        (new CompaniesController)->Companies();
+    });
+
+    // will result in '/companies/id'
+    $router->get('/(\d+)', function ($id) {
+        (new CompaniesController)->Companie($id);
+    });
+
+    // will result in '/companies/id'
+    $router->post('/', function () {
+        (new CompaniesController)->setNewCompanies();
+    });
+
+    // will result in '/companies/id'
+    $router->put('/(\d+)', function ($id) {
+        (new CompaniesController)->updateCompanies($id);
+    });
+
+    // will result in '/companies/id'
+    $router->delete('/(\d+)', function ($id) {
+        (new CompaniesController)->deleteCompanies($id);
+    });
 });
 
 

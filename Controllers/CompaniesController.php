@@ -12,6 +12,22 @@ class CompaniesController
         $companies = new Companies();
         $companies = $companies->getAllCompanies();
         header('Content-Type: application/json');
-        echo json_encode(['companies' => $companies]);
+        echo json_encode([
+            'status' => 200,
+            'message' => 'OK',
+            'data' => $companies
+        ], JSON_PRETTY_PRINT);
+    }
+
+    public function Companie($id)
+    {
+        $companies = new Companies();
+        $companies = $companies->getOneCompanie($id);
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => 200,
+            'message' => 'OK',
+            'data' => $companies
+        ], JSON_PRETTY_PRINT);
     }
 }
