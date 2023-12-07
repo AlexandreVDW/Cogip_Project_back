@@ -6,6 +6,7 @@ use Bramus\Router\Router;
 use App\Controllers\HomeController;
 use App\Controllers\InvoicesController;
 use App\Controllers\ContactsController;
+use App\Controllers\UserController;
 
 $router = new Router();
 
@@ -70,6 +71,37 @@ $router->mount('/contacts', function () use ($router) {
             (new ContactsController)->deleteContacts($id);
         });
 });
+
+// Subrouting
+$router->mount('/users', function () use ($router) {
+    
+        // will result in '/users'
+        $router->get('/', function () {
+            (new UserController)->Users();
+        });
+    
+        // will result in '/users/id'
+        $router->get('/(\d+)', function ($id) {
+            (new UserController)->User($id);
+        });
+    
+        // will result in '/users/id'
+        $router->post('/', function () {
+            (new UserController)->setNewUsers();
+        });
+    
+        // will result in '/users/id'
+        $router->put('/(\d+)', function ($id) {
+            (new UserController)->updateUser($id);
+        });
+    
+        // will result in '/users/id'
+        $router->delete('/(\d+)', function ($id) {
+            (new UserController)->deleteUsers($id);
+        });
+});
+
+
 
 
 $router->run();

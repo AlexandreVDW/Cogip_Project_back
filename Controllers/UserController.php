@@ -9,8 +9,8 @@ class UserController
 {
     public function Users()
     {
-        $user = new Users();
-        $user = $user->getAllUsers();
+        $users = new Users();
+        $users = $users->getAllUsers();
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 200,
@@ -21,8 +21,8 @@ class UserController
 
     public function User($id)
     {
-        $user = new Users();
-        $user = $user->getOneUser($id);
+        $users = new Users();
+        $users = $users->getOneUser($id);
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 200,

@@ -18,7 +18,7 @@ class Users
 
     public function getAllUsers()
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM users";
         $stmt = $connect->prepare($sql);
@@ -29,7 +29,7 @@ class Users
 
     public function getOneUser($id)
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM users WHERE id = :id";
         $stmt = $connect->prepare($sql);
@@ -41,7 +41,7 @@ class Users
 
     public function setNewUser ()
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "INSERT INTO users (first_name, role_id, last_name, email, password, created_at, updated_at) VALUES (:first_name, :role_id, :last_name, :email, :password, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
@@ -57,7 +57,7 @@ class Users
 
     public function updateUser ($id, $first_name, $role_id, $last_name, $email, $password, $updated_at)
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "UPDATE users SET first_name = :first_name, role_id = :role_id, last_name = :last_name, email = :email, password = :password, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
@@ -73,7 +73,7 @@ class Users
 
     public function deleteUserDB ($id)
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connect();
         $sql = "DELETE FROM users WHERE id = :id";
         $stmt = $connect->prepare($sql);
