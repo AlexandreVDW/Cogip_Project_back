@@ -10,6 +10,8 @@ use App\Controllers\UserController;
 use App\Controllers\CompaniesController;
 use App\Controllers\RolesController;
 use App\Controllers\PermissionController;
+use App\Controllers\TypesController;
+use App\Controllers\RolesPermissionController;
 
 $router = new Router();
 
@@ -188,6 +190,64 @@ $router->mount('/permissions', function () use ($router) {
     // will result in '/permissions/id'
     $router->delete('/(\d+)', function ($id) {
         (new PermissionController)->deletePermission($id);
+    });
+});
+
+//subrouting
+$router->mount('/types', function () use ($router) {
+    
+    // will result in '/types'
+    $router->get('/', function () {
+        (new TypesController)->Types();
+    });
+
+    // will result in '/types/id'
+    $router->get('/(\d+)', function ($id) {
+        (new TypesController)->Type($id);
+    });
+
+    // will result in '/types/id'
+    $router->post('/', function () {
+        (new TypesController)->setNewTypes();
+    });
+
+    // will result in '/types/id'
+    $router->put('/(\d+)', function ($id) {
+        (new TypesController)->updateTypes($id);
+    });
+
+    // will result in '/types/id'
+    $router->delete('/(\d+)', function ($id) {
+        (new TypesController)->deleteTypes($id);
+    });
+});
+
+//subrouting
+$router->mount('/roles_permission', function () use ($router) {
+    
+    // will result in '/roles_permission'
+    $router->get('/', function () {
+        (new RolesPermissionController)->RolesPermission();
+    });
+
+    // will result in '/roles_permission/id'
+    $router->get('/(\d+)', function ($id) {
+        (new RolesPermissionController)->RolePermission($id);
+    });
+
+    // will result in '/roles_permission/id'
+    $router->post('/', function () {
+        (new RolesPermissionController)->setNewRolesPermission();
+    });
+
+    // will result in '/roles_permission/id'
+    $router->put('/(\d+)', function ($id) {
+        (new RolesPermissionController)->updateRolesPermission($id);
+    });
+
+    // will result in '/roles_permission/id'
+    $router->delete('/(\d+)', function ($id) {
+        (new RolesPermissionController)->deleteRolesPermission($id);
     });
 });
 

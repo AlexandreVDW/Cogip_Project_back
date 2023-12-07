@@ -5,29 +5,29 @@ namespace App\Controllers;
 use App\core\Controllers;
 use App\model\Types;
 
-class TypesController
+class RolesPermissionController
 {
-    public function Types()
+    public function RolesPermission()
     {
-        $types = new Types();
-        $types = $types->getAllTypes();
+        $rolesPermission = new RolesPermission();
+        $rolesPermission = $rolesPermission->getAllRolesPermission();
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 200,
             'message' => 'OK',
-            'data' => $types
+            'data' => $rolesPermission
         ], JSON_PRETTY_PRINT);
     }
 
-    public function Type($id)
+    public function RolePermission($id)
     {
-        $types = new Types();
-        $types = $types->getOneType($id);
+        $rolesPermission = new RolesPermission();
+        $rolesPermission = $rolesPermission->getOneRolesPermission($id);
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 200,
             'message' => 'OK',
-            'data' => $types
+            'data' => $rolesPermission
         ], JSON_PRETTY_PRINT);
     }
 }

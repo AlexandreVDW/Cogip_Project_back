@@ -22,7 +22,7 @@ class Permission
         $sql = "SELECT * FROM permissions";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $permissions = $stmt->fetchAll();
+        $permissions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $permissions;
     }
 
@@ -34,7 +34,7 @@ class Permission
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $permission = $stmt->fetch();
+        $permission = $stmt->fetch(PDO::FETCH_ASSOC);
         return $permission;
     }
 
