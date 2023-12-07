@@ -22,8 +22,8 @@ class RolesPermission
         $sql = "SELECT * FROM roles_permission";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $rolespermission = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rolespermission;
     }
 
     public function getOneRolesPermission($id)
@@ -34,8 +34,8 @@ class RolesPermission
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        $rolespermission = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $rolespermission;
     }
 
     public function setNewRolesPermission($id, $permission_id, $role_id)

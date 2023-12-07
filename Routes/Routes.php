@@ -223,29 +223,29 @@ $router->mount('/types', function () use ($router) {
 });
 
 //subrouting
-$router->mount('/roles_permission', function () use ($router) {
+$router->mount('/rolespermission', function () use ($router) {
     
-    // will result in '/roles_permission'
+    // will result in '/rolespermission'
     $router->get('/', function () {
         (new RolesPermissionController)->RolesPermission();
     });
 
-    // will result in '/roles_permission/id'
+    // will result in '/rolespermission/id'
     $router->get('/(\d+)', function ($id) {
         (new RolesPermissionController)->RolePermission($id);
     });
 
-    // will result in '/roles_permission/id'
+    // will result in '/rolespermission/id'
     $router->post('/', function () {
         (new RolesPermissionController)->setNewRolesPermission();
     });
 
-    // will result in '/roles_permission/id'
+    // will result in '/rolespermission/id'
     $router->put('/(\d+)', function ($id) {
         (new RolesPermissionController)->updateRolesPermission($id);
     });
 
-    // will result in '/roles_permission/id'
+    // will result in '/rolespermission/id'
     $router->delete('/(\d+)', function ($id) {
         (new RolesPermissionController)->deleteRolesPermission($id);
     });

@@ -22,8 +22,8 @@ class Types
         $sql = "SELECT * FROM roles";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $types;
     }
 
     public function getOneType($id)
@@ -34,8 +34,8 @@ class Types
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        $types = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $types;
     }
 
     public function setNewTypes($name, $created_at, $updated_at)
