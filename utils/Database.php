@@ -6,6 +6,7 @@ namespace App\utils;
 
 use PDO;
 use PDOException;
+use App\utils\Log;
 
 
 class Database 
@@ -21,14 +22,14 @@ class Database
     public function connectDB()
     {
         try {
-            $dsn = "{$this->log->host};{$this->log->db}";
-            $this->pdo = new PDO($dsn, $this->log->user, $this->log->pass);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo 'connection réussie';
-        }
-        catch(PDOException $e)
-        {
-            echo 'erreur de connection: ' . $e->getMessage();
+            $this->pdo = new PDO(
+                "{$this->log->host};{$this->log->db};charset=utf8",
+                $this->log->user, 
+                $this->log->pass
+            );
+            return $this->pdo;
+        } catch(Exception $e) {
+            die('Erreur : '.$e->getMessage());
         }
     }
 
