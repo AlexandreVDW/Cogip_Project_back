@@ -15,7 +15,7 @@ class ContactsController
         echo json_encode([
             'status' => 200,
             'message' => 'OK',
-            'data' => $invoices
+            'data' => $contacts
         ], JSON_PRETTY_PRINT);
     }
 
@@ -27,7 +27,7 @@ class ContactsController
         echo json_encode([
             'status' => 200,
             'message' => 'OK',
-            'data' => $invoices
+            'data' => $contacts
         ], JSON_PRETTY_PRINT);
     }
 }

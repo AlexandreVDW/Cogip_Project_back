@@ -16,30 +16,30 @@ class Contacts
 
     public function getAllContacts()
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT * FROM contacts";
+        $sql = "SELECT contacts.id, contacts.name, contacts.company_id, companies.name, contacts.email, contacts.phone, contacts.created_at, contacts.updated_at FROM contacts INNER JOIN companies on contacts.company_id = companies.id";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $contacts = $stmt->fetchAll();
+        $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $contacts;
     }
 
     public function getOneContact($id)
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "SELECT * FROM contacts WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $contact = $stmt->fetch();
+        $contact = $stmt->fetch(PDO::FETCH_ASSOC);
         return $contact;
     }
 
     public function setNewContact ()
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
@@ -54,7 +54,7 @@ class Contacts
 
     public function updateContact($id, $name, $company_id, $email, $phone, $updated_at)
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "UPDATE contacts SET name = :name, company_id = :company_id, email = :email, phone = :phone, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
@@ -69,7 +69,7 @@ class Contacts
 
     public function deleteContact($id)
     {
-        $db = new Database();
+        $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "DELETE FROM contacts WHERE id = :id";
         $stmt = $connect->prepare($sql);
