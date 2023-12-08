@@ -18,7 +18,7 @@ class Database
 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv = Dotenv::createImmutable(__DIR__);
         $dotenv->load();
     }
 
