@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace App\utils;
 
-// require_once __DIR__ . '/../vendor/autoload.php';
-
-// use Dotenv\Dotenv;
 use PDO;
 use PDOException;
-// use App\utils\Log;
 
 class Database 
 {
@@ -18,8 +14,7 @@ class Database
 
     public function __construct()
     {
-        // $dotenv = Dotenv::createImmutable(__DIR__);
-        // $dotenv->load();
+       
     }
 
     public function connectDB()
