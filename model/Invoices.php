@@ -37,27 +37,27 @@ class Invoices
         return $result;
     }
 
-    public function setNewInvoices($ref, $company_id, $created_at, $updated_at)
+    public function setNewInvoices($ref, $id_company, $created_at, $updated_at)
     {
         $pdo = new Database();
         $conn = $pdo->connectDB();
-        $sql = "INSERT INTO invoices (ref, company_id, created_at, updated_at) VALUES (:ref, :company_id, :created_at, :updated_at)";
+        $sql = "INSERT INTO invoices (ref, id_company, created_at, updated_at) VALUES (:ref, :id_company, :created_at, :updated_at)";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':ref', $ref);
-        $stmt->bindValue(':company_id', $company_id);
+        $stmt->bindValue(':id_company', $id_company);
         $stmt->bindValue(':created_at', $created_at);
         $stmt->bindValue(':updated_at', $updated_at);
         $stmt->execute();
     }
 
-    public function updateInvoices ($id, $ref, $company_id, $updated_at)
+    public function updateInvoices ($id, $ref, $id_company, $updated_at)
     {
         $pdo = new Database();
         $conn = $pdo->connectDB();
-        $sql = "UPDATE invoices SET ref = :ref, company_id = :company_id, updated_at = :updated_at WHERE id = :id";
+        $sql = "UPDATE invoices SET ref = :ref, id_company = :id_company, updated_at = :updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':ref', $ref);
-        $stmt->bindValue(':company_id', $company_id);
+        $stmt->bindValue(':id_company', $id_company);
         $stmt->bindValue(':updated_at', $updated_at);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
