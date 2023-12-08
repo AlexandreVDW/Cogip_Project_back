@@ -39,7 +39,7 @@ class Companies
         return $companie;
     }
 
-    public function setNewCompanies($name, $type_id, $country, $tva, $created_at, $updated_at)
+    public function setNewCompanies($name, $type_id, $country, $tva)
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
@@ -49,10 +49,13 @@ class Companies
         $stmt->bindValue(':type_id', $type_id);
         $stmt->bindValue(':country', $country);
         $stmt->bindValue(':tva', $tva);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':created_at', $currentDateTime);
+        $stmt->bindValue(':updated_at', $currentDateTime);
         $stmt->execute();
     }
 
-    public function updateCompanies($id, $name, $type_id, $country, $tva, $updated_at)
+    public function updateCompanies($id, $name, $type_id, $country, $tva)
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
@@ -63,7 +66,8 @@ class Companies
         $stmt->bindValue(':type_id', $type_id);
         $stmt->bindValue(':country', $country);
         $stmt->bindValue(':tva', $tva);
-        $stmt->bindValue(':updated_at', $updated_at);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':updated_at', $currentDateTime);
         $stmt->execute();
     }
 

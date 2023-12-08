@@ -37,7 +37,7 @@ class Invoices
         return $result;
     }
 
-    public function setNewInvoices($ref, $id_company, $created_at, $updated_at)
+    public function setNewInvoices($ref, $id_company)
     {
         $pdo = new Database();
         $conn = $pdo->connectDB();
@@ -45,8 +45,9 @@ class Invoices
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':ref', $ref);
         $stmt->bindValue(':id_company', $id_company);
-        $stmt->bindValue(':created_at', $created_at);
-        $stmt->bindValue(':updated_at', $updated_at);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':created_at', $currentDateTime);
+        $stmt->bindValue(':updated_at', $currentDateTime);
         $stmt->execute();
     }
 
