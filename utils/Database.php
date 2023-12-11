@@ -6,9 +6,7 @@ namespace App\utils;
 
 use PDO;
 use PDOException;
-// use App\utils\Log;
 use Dotenv\Dotenv;
-
 
 class Database 
 {
