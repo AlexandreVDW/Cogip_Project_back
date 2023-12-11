@@ -6,6 +6,7 @@ namespace App\utils;
 
 use PDO;
 use PDOException;
+use Dotenv\Dotenv;
 
 class Database 
 {
@@ -14,7 +15,8 @@ class Database
 
     public function __construct()
     {
-       
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
     }
 
     public function connectDB()
