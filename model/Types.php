@@ -19,7 +19,7 @@ class Types
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM roles";
+        $sql = "SELECT * FROM types";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
         $types = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +30,7 @@ class Types
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM roles WHERE id = :id";
+        $sql = "SELECT * FROM types WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
@@ -42,7 +42,7 @@ class Types
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "INSERT INTO roles (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
+        $sql = "INSERT INTO types (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':created_at', $created_at);
@@ -54,7 +54,7 @@ class Types
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "UPDATE roles SET name = :name, updated_at = :updated_at WHERE id = :id";
+        $sql = "UPDATE types SET name = :name, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':name', $name);
@@ -66,7 +66,7 @@ class Types
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "DELETE FROM roles WHERE id = :id";
+        $sql = "DELETE FROM types WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();

@@ -30,4 +30,44 @@ class CompaniesController
             'data' => $companies
         ], JSON_PRETTY_PRINT);
     }
+
+    public function setNewCompanies()
+    {
+        $jsonBody = file_get_contents("php://input");
+        $data = json_decode($jsonBody, true);
+
+        if ($data === null || !isset($data['name'], $data['type_id'], $data['country'], $data['tva'])) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Bad Request',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $name = $data['name'];
+        $type_id = $data['type_id'];
+        $country = $data['country'];
+        $tva = $data['tva'];
+
+        $companies = new Companies();
+        $result = $companies->setNewCompanies($name, $type_id, $country, $tva);
+        
+        if(!$result) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 201,
+                'message' => 'created',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        }
+    }
 }
