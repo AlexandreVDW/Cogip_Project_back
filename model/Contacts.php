@@ -23,7 +23,7 @@ class Contacts
 
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT contacts.id, contacts.name, contacts.company_id, companies.name as company_name, contacts.email, contacts.phone, contacts.created_at, contacts.updated_at FROM contacts LIMIT :limit OFFSET :offset INNER JOIN companies on contacts.company_id = companies.id";
+        $sql = "SELECT contacts.id, contacts.name, contacts.company_id, companies.name as company_name, contacts.email, contacts.phone, contacts.created_at, contacts.updated_at FROM contacts  INNER JOIN companies on contacts.company_id = companies.id LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
