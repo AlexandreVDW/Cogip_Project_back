@@ -38,22 +38,28 @@ class Contacts
         return $contact;
     }
 
-    public function setNewContact ()
+    public function setNewContact ($name, $company_id, $email, $phone)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        $company_id = filter_var($company_id, FILTER_SANITIZE_NUMBER_INT);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $phone = filter_var($phone, FILTER_SANITIZE_STRING);
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
-        $stmt->bindValue(':company_id', $this->company_id, PDO::PARAM_INT);
-        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $stmt->bindValue(':phone', $this->phone, PDO::PARAM_STR);
-        $stmt->bindValue(':created_at', $this->created_at, PDO::PARAM_STR);
-        $stmt->bindValue(':updated_at', $this->updated_at, PDO::PARAM_STR);
-        $stmt->execute();
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':company_id', $company_id);
+        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':phone', $phone);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':created_at', $currentDateTime);
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
-    public function updateContact($id, $name, $company_id, $email, $phone, $updated_at)
+    public function updateContact($name, $company_id, $email, $phone)
     {
         $pdo = new Database();
         $connect = $pdo -> connectDB();
