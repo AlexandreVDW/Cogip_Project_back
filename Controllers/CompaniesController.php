@@ -33,22 +33,41 @@ class CompaniesController
 
     public function setNewCompanies()
     {
-        // Récupérer le corps de la requête JSON
         $jsonBody = file_get_contents("php://input");
-        // Transformer le JSON en un tableau PHP associatif
         $data = json_decode($jsonBody, true);
 
-        $name = $_POST['name'];
-        $type_id = $_POST['type_id'];
-        $country = $_POST['country'];
-        $tva = $_POST['tva'];
+        if ($data === null || !isset($data['name'], $data['type_id'], $data['country'], $data['tva'])) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Bad Request',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        $name = $data['name'];
+        $type_id = $data['type_id'];
+        $country = $data['country'];
+        $tva = $data['tva'];
+
         $companies = new Companies();
-        $companies = $companies->setNewCompanies($name, $type_id, $country, $tva);
-        // header('Content-Type: application/json');
-        // echo json_encode([
-        //     'status' => 200,
-        //     'message' => 'OK',
-        //     'data' => $companies
-        // ], JSON_PRETTY_PRINT);
+        $result = $companies->setNewCompanies($name, $type_id, $country, $tva);
+        
+        if(!$result) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 201,
+                'message' => 'created',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        }
     }
 }

@@ -39,10 +39,7 @@ $router->mount('/invoices', function () use ($router) {
 
     // will result in '/invoices/id'
     $router->post('/', function () {
-        $ref = $_POST['ref'];
-        $id_company = $_POST['id_company'];
-        
-        (new InvoicesController)->setNewInvoices($ref, $id_company);
+        (new InvoicesController)->setNewInvoices();
     });
 
     // will result in '/invoices/id'

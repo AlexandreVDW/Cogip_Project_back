@@ -41,6 +41,11 @@ class Companies
 
     public function setNewCompanies($name, $type_id, $country, $tva)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        $type_id = filter_var($type_id, FILTER_SANITIZE_NUMBER_INT);
+        $country = filter_var($country, FILTER_SANITIZE_STRING);
+        $tva = filter_var($tva, FILTER_SANITIZE_STRING);
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "INSERT INTO companies (name, type_id, country, tva, created_at, updated_at) VALUES (:name, :type_id, :country, :tva, :created_at, :updated_at)";
@@ -52,7 +57,7 @@ class Companies
         $currentDateTime = date('Y-m-d H:i:s');
         $stmt->bindValue(':created_at', $currentDateTime);
         $stmt->bindValue(':updated_at', $currentDateTime);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function updateCompanies($id, $name, $type_id, $country, $tva)

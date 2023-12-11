@@ -39,6 +39,9 @@ class Invoices
 
     public function setNewInvoices($ref, $id_company)
     {
+        $ref = filter_var($ref, FILTER_SANITIZE_STRING);
+        $id_company = filter_var($id_company, FILTER_SANITIZE_NUMBER_INT);
+
         $pdo = new Database();
         $conn = $pdo->connectDB();
         $sql = "INSERT INTO invoices (ref, id_company, created_at, updated_at) VALUES (:ref, :id_company, :created_at, :updated_at)";
@@ -48,7 +51,7 @@ class Invoices
         $currentDateTime = date('Y-m-d H:i:s');
         $stmt->bindValue(':created_at', $currentDateTime);
         $stmt->bindValue(':updated_at', $currentDateTime);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function updateInvoices ($id, $ref, $id_company, $updated_at)

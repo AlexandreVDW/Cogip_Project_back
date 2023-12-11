@@ -33,18 +33,41 @@ class InvoicesController
 
     public function setNewInvoices()
     {
-    $ref = $_POST['ref'];
-    $company_id = $_POST['company_id'];
-    $created_at = $_POST['created_at'];
-    $updated_at = $_POST['updated_at'];
+
+        $jsonBody = file_get_contents("php://input");
+        $data = json_decode($jsonBody, true);
+
+        if ($data === null || !isset($data['ref'], $data['company_id'])) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Bad Request',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+    $ref = $data['ref'];
+    $company_id = $data['company_id'];
+    
     $invoices = new Invoices();
-    $invoices = $invoices->setNewInvoices($ref, $company_id, $created_at, $updated_at);
+    $result = $invoices->setNewInvoices($ref, $company_id);
+
+        if(!$result) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
         header('Content-Type: application/json');
         echo json_encode([
-            'status' => 200,
-            'message' => 'OK',
-            'data' => $invoices
+            'status' => 201,
+            'message' => 'Created',
+            'data' => $data
         ], JSON_PRETTY_PRINT);
+        
     }
 
     public function updateInvoices($id)
