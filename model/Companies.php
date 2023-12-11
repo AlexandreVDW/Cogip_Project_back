@@ -62,6 +62,11 @@ class Companies
 
     public function updateCompanies($id, $name, $type_id, $country, $tva)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        $type_id = filter_var($type_id, FILTER_SANITIZE_NUMBER_INT);
+        $country = filter_var($country, FILTER_SANITIZE_STRING);
+        $tva = filter_var($tva, FILTER_SANITIZE_STRING);
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "UPDATE companies SET name = :name, type_id = :type_id, country = :country, tva = :tva, updated_at = :updated_at WHERE id = :id";
@@ -73,7 +78,7 @@ class Companies
         $stmt->bindValue(':tva', $tva);
         $currentDateTime = date('Y-m-d H:i:s');
         $stmt->bindValue(':updated_at', $currentDateTime);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function deleteCompanies($id)

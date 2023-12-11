@@ -97,7 +97,7 @@ $router->mount('/users', function () use ($router) {
     
         // will result in '/users/id'
         $router->post('/', function () {
-            (new UserController)->setNewUsers();
+            (new UserController)->setNewUser();
         });
     
         // will result in '/users/id'

@@ -54,17 +54,21 @@ class Invoices
         return $stmt->execute();
     }
 
-    public function updateInvoices ($id, $ref, $id_company, $updated_at)
+    public function updateInvoices ($ref, $id_company)
     {
+        $ref = filter_var($ref, FILTER_SANITIZE_STRING);
+        $id_company = filter_var($id_company, FILTER_SANITIZE_NUMBER_INT);
+
         $pdo = new Database();
         $conn = $pdo->connectDB();
         $sql = "UPDATE invoices SET ref = :ref, id_company = :id_company, updated_at = :updated_at WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':ref', $ref);
         $stmt->bindValue(':id_company', $id_company);
-        $stmt->bindValue(':updated_at', $updated_at);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':updated_at', $currentDateTime);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function deleteInvoices($id)
