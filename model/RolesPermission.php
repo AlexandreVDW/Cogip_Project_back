@@ -38,16 +38,18 @@ class RolesPermission
         return $rolespermission;
     }
 
-    public function setNewRolesPermission($id, $permission_id, $role_id)
+    public function setNewRolesPermission($permission_id, $role_id)
     {
+        $permission_id = filter_var($permission_id, FILTER_SANITIZE_NUMBER_INT);
+        $role_id = filter_var($role_id, FILTER_SANITIZE_NUMBER_INT);
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "INSERT INTO roles_permission (id, permission_id, role_id) VALUES (:id, :permission_id, :role_id)";
+        $sql = "INSERT INTO roles_permission (permission_id, role_id) VALUES (:permission_id, :role_id)";
         $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':id', $id);
         $stmt->bindValue(':permission_id', $permission_id);
         $stmt->bindValue(':role_id', $role_id);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function updateRolesPermission($id, $permission_id, $role_id)
