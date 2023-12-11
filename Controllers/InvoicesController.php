@@ -4,13 +4,21 @@ namespace App\Controllers;
 
 use App\core\Controllers;
 use App\model\Invoices;
+use App\Core\Pagination;
 
 class InvoicesController
 {
     public function Invoices()
     {
+     
+     $currentPage = $_GET['page'] ?? 1;
+     $itemsPerPage = $_GET['itemsPerPage'] ?? 100;
+     $pagination = new Pagination();
+     $pagination->setPage($currentPage);
+     $pagination->setItemsPerPage($itemsPerPage);
+
     $invoices = new Invoices();
-    $invoices = $invoices->getAllInvoices();
+    $invoices = $invoices->getAllInvoices($pagination);
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 200,

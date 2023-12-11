@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\model;
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class Invoices
@@ -14,12 +15,16 @@ class Invoices
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllInvoices()
+    public function getAllInvoices(Pagination $pagination)
     {
+        list($limit, $offset) = $pagination->getItemsPerPage();
+
         $pdo = new Database();
         $conn = $pdo->connectDB();
-        $sql = "SELECT invoices.id, invoices.ref, invoices.id_company, companies.name, invoices.created_at, invoices.updated_at FROM invoices INNER JOIN companies ON invoices.id_company = companies.id";
+        $sql = "SELECT invoices.id, invoices.ref, invoices.id_company, companies.name, invoices.created_at, invoices.updated_at FROM invoices  INNER JOIN companies ON invoices.id_company = companies.id LIMIT :limit OFFSET :offset";
         $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
