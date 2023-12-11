@@ -4,20 +4,11 @@ declare(strict_types=1);
 
 namespace App\model;
 
-class strict_types{
-    public int $id;
-    public string $name;
-    public datetime $created_at;
-    public datetime $updated_at;
+use App\utils\Database;
+use PDO;
 
-    public function __construct(int $id, string $name, datetime $created_at, datetime $updated_at)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
-    }
-
+class Types
+{
     public function formatDate($date)
     {
         $date = new DateTime($date);
@@ -27,32 +18,32 @@ class strict_types{
     public function getAllTypes()
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "SELECT * FROM roles";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $result = $stmt->fetchAll();
-        return $result;
+        $types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $types;
     }
 
     public function getOneType($id)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "SELECT * FROM roles WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $result = $stmt->fetch();
-        return $result;
+        $types = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $types;
     }
 
     public function setNewTypes($name, $created_at, $updated_at)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "INSERT INTO roles (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':created_at', $created_at);
         $stmt->bindValue(':updated_at', $updated_at);
@@ -62,9 +53,9 @@ class strict_types{
     public function updateType($id, $name, $updated_at)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "UPDATE roles SET name = :name, updated_at = :updated_at WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':updated_at', $updated_at);
@@ -74,9 +65,9 @@ class strict_types{
     public function deleteType($id)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "DELETE FROM roles WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
     }

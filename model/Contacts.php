@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\model;
+
 use App\utils\Database;
 use App\Core\Pagination;
 use PDO;
@@ -22,7 +23,7 @@ class Contacts
 
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT * FROM contacts LIMIT :limit OFFSET :offset";
+        $sql = "SELECT contacts.id, contacts.name, contacts.company_id, companies.name as company_name, contacts.email, contacts.phone, contacts.created_at, contacts.updated_at FROM contacts LIMIT :limit OFFSET :offset INNER JOIN companies on contacts.company_id = companies.id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -35,7 +36,7 @@ class Contacts
     {
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT * FROM contacts WHERE id = :id";
+        $sql = "SELECT contacts.id, contacts.name, contacts.company_id, companies.name as company_name, contacts.email, contacts.phone, contacts.created_at, contacts.updated_at FROM contacts INNER JOIN companies on contacts.company_id = companies.id WHERE contacts.id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();

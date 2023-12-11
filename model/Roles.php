@@ -4,21 +4,11 @@ declare(strict_types=1);
 
 namespace App\model;
 
+use App\utils\Database;
+use PDO;
+
 class Roles
 {
-    public int $id;
-    public string $name;
-    public datetime $created_at;
-    public datetime $updated_at;
-
-    public function __construct(int $id, string $name, datetime $created_at, datetime $updated_at)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
-    }
-
     public function formatDate($date)
     {
         $date = new DateTime($date);
@@ -28,32 +18,32 @@ class Roles
     public function getAllRoles()
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "SELECT * FROM roles";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->execute();
-        $result = $stmt->fetchAll();
-        return $result;
+        $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $roles;
     }
 
     public function getOneRole($id)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "SELECT * FROM roles WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        $result = $stmt->fetch();
-        return $result;
+        $roles = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $roles;
     }
 
     public function setNewRoles($name, $created_at, $updated_at)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "INSERT INTO roles (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':created_at', $created_at);
         $stmt->bindValue(':updated_at', $updated_at);
@@ -63,9 +53,9 @@ class Roles
     public function updateRoles($id, $name, $updated_at)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "UPDATE roles SET name = :name, updated_at = :updated_at WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':updated_at', $updated_at);
@@ -75,9 +65,9 @@ class Roles
     public function deleteRoles($id)
     {
         $pdo = new Database();
-        $conn = $pdo->connect();
+        $connect = $pdo->connectDB();
         $sql = "DELETE FROM roles WHERE id = :id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
     }
