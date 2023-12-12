@@ -104,8 +104,8 @@ class CompaniesController
         } else {
             header('Content-Type: application/json');
             echo json_encode([
-                'status' => 201,
-                'message' => 'created',
+                'status' => 202,
+                'message' => 'Updated',
                 'data' => $result
             ], JSON_PRETTY_PRINT);
         }
