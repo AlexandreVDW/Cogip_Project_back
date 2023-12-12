@@ -58,16 +58,19 @@ class Permission
         return $stmt->execute();
     }
 
-    public function updatePermission ($id, $name, $updated_at)
+    public function updatePermission ($id, $name)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "UPDATE permissions SET name = :name, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':name', $this->name);
-        $stmt->bindValue(':updated_at', $this->updated_at);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        $stmt->bindValue(':name', $name);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
     public function deletePermission($id)
