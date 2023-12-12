@@ -117,4 +117,25 @@ class CompaniesController
             ], JSON_PRETTY_PRINT);
         }
     }
+    public function deleteCompanies($id)
+    {
+        $companies = new Companies();
+        $result = $companies->deleteCompanies($id);
+        
+        if(!$result) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 202,
+                'message' => 'Deleted',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        }
+    }
 }
