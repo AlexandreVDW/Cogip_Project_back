@@ -51,7 +51,7 @@ class RolesPermissionController
 
         $rolesPermission = new RolesPermission();
         $result = $rolesPermission->setNewRolesPermission($permission_id, $role_id);
-        var_dump($result);
+        
         if(!$result) {
             header('Content-Type: application/json');
             echo json_encode([
