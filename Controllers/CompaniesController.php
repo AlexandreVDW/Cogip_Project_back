@@ -110,4 +110,5 @@ class CompaniesController
             ], JSON_PRETTY_PRINT);
         }
     }
+
 }
