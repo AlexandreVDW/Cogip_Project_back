@@ -45,7 +45,7 @@ class InvoicesController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['ref'], $data['company_id'])) {
+        if ($data === null || !isset($data['ref'], $data['id_company'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -54,27 +54,27 @@ class InvoicesController
             ], JSON_PRETTY_PRINT);
             return;
         }
-    $ref = $data['ref'];
-    $company_id = $data['company_id'];
-    
-    $invoices = new Invoices();
-    $result = $invoices->setNewInvoices($ref, $company_id);
+        $ref = $data['ref'];
+        $id_company = $data['id_company'];
+        
+        $invoices = new Invoices();
+        $result = $invoices->setNewInvoices($ref, $id_company);
 
-        if(!$result) {
+            if(!$result) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'status' => 500,
+                    'message' => 'Internal Server Error',
+                    'data' => $data
+                ], JSON_PRETTY_PRINT);
+                return;
+            }
             header('Content-Type: application/json');
             echo json_encode([
-                'status' => 500,
-                'message' => 'Internal Server Error',
+                'status' => 201,
+                'message' => 'Created',
                 'data' => $data
             ], JSON_PRETTY_PRINT);
-            return;
-        }
-        header('Content-Type: application/json');
-        echo json_encode([
-            'status' => 201,
-            'message' => 'Created',
-            'data' => $data
-        ], JSON_PRETTY_PRINT);
         
     }
 

@@ -65,8 +65,13 @@ class Contacts
         return $stmt->execute();
     }
 
-    public function updateContact($name, $company_id, $email, $phone)
+    public function updateContact($id, $name, $company_id, $email, $phone)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        $company_id = filter_var($company_id, FILTER_SANITIZE_NUMBER_INT);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $phone = filter_var($phone, FILTER_SANITIZE_STRING);
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "UPDATE contacts SET name = :name, company_id = :company_id, email = :email, phone = :phone, updated_at = :updated_at WHERE id = :id";
@@ -76,8 +81,9 @@ class Contacts
         $stmt->bindValue(':company_id', $company_id);
         $stmt->bindValue(':email', $email);
         $stmt->bindValue(':phone', $phone);
-        $stmt->bindValue(':updated_at', $updated_at);
-        $stmt->execute();
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
     public function deleteContact($id)
