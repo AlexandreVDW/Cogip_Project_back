@@ -81,13 +81,4 @@ class Companies
         return $stmt->execute();
     }
 
-    public function deleteCompanies($id)
-    {
-        $pdo = new Database();
-        $connect = $pdo->connectDB();
-        $sql = "DELETE FROM companies WHERE id = :id";
-        $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
-    }
 }

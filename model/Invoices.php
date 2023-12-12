@@ -54,7 +54,7 @@ class Invoices
         return $stmt->execute();
     }
 
-    public function updateInvoices ($ref, $id_company)
+    public function updateInvoices ($id, $ref, $id_company)
     {
         $ref = filter_var($ref, FILTER_SANITIZE_STRING);
         $id_company = filter_var($id_company, FILTER_SANITIZE_NUMBER_INT);
