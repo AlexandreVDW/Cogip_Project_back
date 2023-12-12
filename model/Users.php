@@ -67,8 +67,14 @@ class Users
         return $stmt->execute();
     }
 
-    public function updateUser ($id, $first_name, $role_id, $last_name, $email, $password, $updated_at)
+    public function updateUser ($id, $first_name, $role_id, $last_name, $email, $password)
     {
+        $first_name = filter_var($first_name, FILTER_SANITIZE_STRING);
+        $role_id = filter_var($role_id, FILTER_SANITIZE_NUMBER_INT);
+        $last_name = filter_var($last_name, FILTER_SANITIZE_STRING);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "UPDATE users SET first_name = :first_name, role_id = :role_id, last_name = :last_name, email = :email, password = :password, updated_at = :updated_at WHERE id = :id";
@@ -81,7 +87,7 @@ class Users
         $stmt->bindValue(':password', $password);
         $currentDateTime = date('Y-m-d H:i:s');
         $stmt->bindValue(':updated_at', $currentDateTime);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function deleteUserDB ($id)

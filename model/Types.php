@@ -59,16 +59,19 @@ class Types
         return $stmt->execute();
     }
 
-    public function updateType($id, $name, $updated_at)
+    public function updateTypes($id, $name)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "UPDATE types SET name = :name, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':updated_at', $updated_at);
-        $stmt->execute();
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
     public function deleteType($id)
