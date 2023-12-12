@@ -35,7 +35,7 @@ class RolesPermissionController
     {
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
-
+        
         if ($data === null || !isset($data['permission_id'], $data['role_id'])) {
             header('Content-Type: application/json');
             echo json_encode([
@@ -51,7 +51,7 @@ class RolesPermissionController
 
         $rolesPermission = new RolesPermission();
         $result = $rolesPermission->setNewRolesPermission($permission_id, $role_id);
-        
+        var_dump($result);
         if(!$result) {
             header('Content-Type: application/json');
             echo json_encode([

@@ -52,7 +52,7 @@ class RolesPermission
         return $stmt->execute();
     }
 
-    public function updateRolesPermission($id, $permission_id, $role_id)
+    public function updateRolesPermission($permission_id, $role_id)
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
