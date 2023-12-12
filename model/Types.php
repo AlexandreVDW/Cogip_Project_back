@@ -44,16 +44,19 @@ class Types
         return $types;
     }
 
-    public function setNewTypes($name, $created_at, $updated_at)
+    public function setNewTypes($name)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "INSERT INTO types (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':created_at', $created_at);
-        $stmt->bindValue(':updated_at', $updated_at);
-        $stmt->execute();
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':created_at', $currentDateTime);
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
     public function updateType($id, $name, $updated_at)

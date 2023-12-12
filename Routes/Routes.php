@@ -68,12 +68,12 @@ $router->mount('/contacts', function () use ($router) {
     
         // will result in '/contacts/id'
         $router->post('/', function () {
-            (new ContactsController)->setNewContacts();
+            (new ContactsController)->setNewContact();
         });
     
         // will result in '/contacts/id'
         $router->put('/(\d+)', function ($id) {
-            (new ContactsController)->updateContacts($id);
+            (new ContactsController)->updateContact($id);
         });
     
         // will result in '/contacts/id'

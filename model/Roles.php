@@ -43,16 +43,19 @@ class Roles
         return $roles;
     }
 
-    public function setNewRoles($name, $created_at, $updated_at)
+    public function setNewRoles($name)
     {
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "INSERT INTO roles (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':created_at', $created_at);
-        $stmt->bindValue(':updated_at', $updated_at);
-        $stmt->execute();
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':created_at', $currentDateTime);
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
     public function updateRoles($id, $name, $updated_at)

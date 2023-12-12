@@ -36,7 +36,7 @@ class Users
     {
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT users.id, users.first_name, users.last_name, users.role_id, roles.name as roles_name, users.email, users.password, users.created_ad, users.updated_at FROM users INNER JOIN roles ON users.role_id = roles.id WHERE users.id = :id";
+        $sql = "SELECT users.id, users.first_name, users.last_name, users.role_id, roles.name as roles_name, users.email, users.password, users.created_at, users.updated_at FROM users INNER JOIN roles ON users.role_id = roles.id WHERE users.id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
@@ -49,7 +49,7 @@ class Users
         $first_name = filter_var($first_name, FILTER_SANITIZE_STRING);
         $role_id = filter_var($role_id, FILTER_SANITIZE_NUMBER_INT);
         $last_name = filter_var($last_name, FILTER_SANITIZE_STRING);
-        $email = filter_var($email, FILTER_SANITIZE_STRING);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         $pdo = new Database();
