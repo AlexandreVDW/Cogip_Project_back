@@ -86,13 +86,13 @@ class Contacts
         return $stmt->execute();
     }
 
-    public function deleteContact($id)
+    public function deleteContacts($id)
     {
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "DELETE FROM contacts WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        return $stmt->execute();
     }
 }
