@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\model;
 
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class Roles
@@ -15,12 +16,16 @@ class Roles
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllRoles()
+    public function getAllRoles(Pagination $pagination)
     {
+        list($limit, $offset) = $pagination->getItemsPerPage();
+       
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM roles";
+        $sql = "SELECT * FROM roles LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $roles;

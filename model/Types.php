@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\model;
 
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class Types
@@ -15,12 +16,16 @@ class Types
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllTypes()
+    public function getAllTypes(Pagination $pagination)
     {
+        list($limit, $offset) = $pagination->getItemsPerPage();
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT * FROM types";
+        $sql = "SELECT * FROM types LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $types = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $types;
@@ -28,6 +33,7 @@ class Types
 
     public function getOneType($id)
     {
+       
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "SELECT * FROM types WHERE id = :id";

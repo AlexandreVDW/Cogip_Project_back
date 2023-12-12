@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\model;
 
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class Companies
@@ -16,12 +17,15 @@ class Companies
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllCompanies()
+    public function getAllCompanies(Pagination $pagination)
     {
+        list($limit, $offset) = $pagination->getItemsPerPage();
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT companies.id, companies.name, companies.type_id, types.name as types_name, companies.country, companies.tva, companies.created_at, companies.updated_at FROM companies INNER JOIN types ON companies.type_id = types.id";
+        $sql = "SELECT companies.id, companies.name, companies.type_id, types.name as types_name, companies.country, companies.tva, companies.created_at, companies.updated_at FROM companies INNER JOIN types ON companies.type_id = types.id LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $companies;

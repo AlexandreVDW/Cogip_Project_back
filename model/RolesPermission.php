@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\model;
 
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class RolesPermission
@@ -15,12 +16,16 @@ class RolesPermission
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllRolesPermission()
+    public function getAllRolesPermission(Pagination $pagination)
     {
+        list($limit, $offset) = $pagination->getItemsPerPage();
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
-        $sql = "SELECT roles_permission.id, roles_permission.permission_id, permissions.name as permissions_name, roles_permission.role_id, roles.name as roles_name FROM roles_permission INNER JOIN permissions ON roles_permission.permission_id = permissions.id INNER JOIN roles ON roles_permission.role_id = roles.id";
+        $sql = "SELECT roles_permission.id, roles_permission.permission_id, permissions.name as permissions_name, roles_permission.role_id, roles.name as roles_name FROM roles_permission INNER JOIN permissions ON roles_permission.permission_id = permissions.id INNER JOIN roles ON roles_permission.role_id = roles.id LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $rolespermission = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rolespermission;
