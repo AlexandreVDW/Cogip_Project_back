@@ -64,9 +64,9 @@ class Users
 
     public function updateUser ($id, $first_name, $role_id, $last_name, $email, $password)
     {
-        $first_name = filter_var($first_name, FILTER_SANITIZE_STRING);
+        $first_name = htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8');
         $role_id = filter_var($role_id, FILTER_SANITIZE_NUMBER_INT);
-        $last_name = filter_var($last_name, FILTER_SANITIZE_STRING);
+        $last_name = htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8');
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
         $password = password_hash($password, PASSWORD_DEFAULT);
 
