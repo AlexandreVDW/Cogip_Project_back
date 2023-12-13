@@ -15,9 +15,16 @@ use App\Controllers\RolesPermissionController;
 
 $router = new Router();
 
+$router->options('/.*', function() {
+    header("Access-Control-Allow-Origin: *"); // replace '*' with your origin as needed
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+});
+
 $router->before('GET|POST|PUT|DELETE', '/.*', function() {
     header("Access-Control-Allow-Origin: *"); // replace '*' with your origin as needed
     header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 });
 
 $router->get('/', function() {

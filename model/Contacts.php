@@ -46,10 +46,10 @@ class Contacts
 
     public function setNewContact ($name, $company_id, $email, $phone)
     {
-        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
         $company_id = filter_var($company_id, FILTER_SANITIZE_NUMBER_INT);
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        $phone = filter_var($phone, FILTER_SANITIZE_STRING);
+        $phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
 
         $pdo = new Database();
         $connect = $pdo -> connectDB();
@@ -67,10 +67,10 @@ class Contacts
 
     public function updateContact($id, $name, $company_id, $email, $phone)
     {
-        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
         $company_id = filter_var($company_id, FILTER_SANITIZE_NUMBER_INT);
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        $phone = filter_var($phone, FILTER_SANITIZE_STRING);
+        $phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
 
         $pdo = new Database();
         $connect = $pdo -> connectDB();
