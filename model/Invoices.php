@@ -83,6 +83,7 @@ class Invoices
         $sql = "DELETE FROM invoices WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        return $stmt->execute();
     }
+   
 }

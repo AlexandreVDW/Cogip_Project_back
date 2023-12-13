@@ -74,7 +74,7 @@ class Types
         return $stmt->execute();
     }
 
-    public function deleteType($id)
+    public function deleteTypes($id)
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();

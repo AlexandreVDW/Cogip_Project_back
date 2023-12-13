@@ -90,13 +90,14 @@ class Users
         return $stmt->execute();
     }
 
-    public function deleteUserDB ($id)
+
+    public function deleteUsers($id)
     {
         $pdo = new Database();
-        $connect = $pdo -> connect();
+        $connect = $pdo -> connectDB();
         $sql = "DELETE FROM users WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        return $stmt->execute();
     }
 }
