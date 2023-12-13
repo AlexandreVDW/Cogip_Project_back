@@ -7,7 +7,7 @@ namespace App\utils;
 use PDO;
 use PDOException;
 
-// ligne a commenter pour le deploiement en ligne
+// ligne a commenter pour le deploiement en ligne fonctionnel
 use Dotenv\Dotenv;
 
 class Database 
