@@ -7,8 +7,8 @@ namespace App\utils;
 use PDO;
 use PDOException;
 
-// ligne a commenter pour le deploiement en ligne fonctionnel
-use Dotenv\Dotenv;
+// ligne a commenter pour le deploiement en ligne fonctionnel encore oublier
+// use Dotenv\Dotenv;
 
 
 class Database 
@@ -19,8 +19,8 @@ class Database
     public function __construct()
     {
         // les deux ligne a commenter pour le deploiement en ligne encore oublier
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-        $dotenv->load();
+        // $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        // $dotenv->load();
     }
 
     public function connectDB()
