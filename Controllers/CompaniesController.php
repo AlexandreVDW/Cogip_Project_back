@@ -129,13 +129,13 @@ class CompaniesController
                 'message' => 'Internal Server Error',
                 'data' => $result
             ], JSON_PRETTY_PRINT);
-        } else {
-            header('Content-Type: application/json');
-            echo json_encode([
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode([
                 'status' => 202,
                 'message' => 'Deleted',
                 'data' => $result
             ], JSON_PRETTY_PRINT);
-        }
     }
 }
