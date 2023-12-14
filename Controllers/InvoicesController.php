@@ -96,7 +96,7 @@ class InvoicesController
         $id_company = $data['id_company'];
         
         $invoices = new Invoices();
-        $result = $invoices->updateInvoices($id, $ref, $id_company);
+        $result = $invoices->updateInvoices($id, $ref, $id_company, $due_at);
 
             if(!$result) {
                 header('Content-Type: application/json');
