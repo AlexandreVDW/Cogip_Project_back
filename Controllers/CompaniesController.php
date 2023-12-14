@@ -4,13 +4,20 @@ namespace App\Controllers;
 
 use App\core\Controllers;
 use App\model\Companies;
+use App\Core\Pagination;
 
 class CompaniesController
 {
     public function Companies()
     {
+        $currentPage = $_GET['page'] ?? 1;
+        $itemsPerPage = $_GET['itemsPerPage'] ?? 100;
+        $pagination = new Pagination();
+        $pagination->setPage($currentPage);
+        $pagination->setItemsPerPage($itemsPerPage);
+   
         $companies = new Companies();
-        $companies = $companies->getAllCompanies();
+        $companies = $companies->getAllCompanies($pagination);
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 200,
@@ -110,5 +117,25 @@ class CompaniesController
             ], JSON_PRETTY_PRINT);
         }
     }
-
+    public function deleteCompanies($id)
+    {
+        $companies = new Companies();
+        $result = $companies->deleteCompanies($id);
+        
+        if(!$result) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 202,
+                'message' => 'Deleted',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+        }
+    }
 }

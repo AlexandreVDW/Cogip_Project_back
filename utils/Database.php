@@ -10,6 +10,7 @@ use PDOException;
 // ligne a commenter pour le deploiement en ligne fonctionnel
 use Dotenv\Dotenv;
 
+
 class Database 
 {
     private Log $log;

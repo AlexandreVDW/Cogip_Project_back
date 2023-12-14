@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\model;
 
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class Users 
@@ -16,12 +17,16 @@ class Users
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllUsers()
+    public function getAllUsers(Pagination $pagination)
     {
+        list($limit, $offset) = $pagination->getItemsPerPage();
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT users.id, users.first_name, users.last_name, users.role_id, roles.name as roles_name, users.email, users.password, users.created_at, users.updated_at FROM users INNER JOIN roles ON users.role_id = roles.id";
+        $sql = "SELECT users.id, users.first_name, users.last_name, users.role_id, roles.name as roles_name, users.email, users.password, users.created_at, users.updated_at FROM users INNER JOIN roles ON users.role_id = roles.id LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $users;
@@ -85,13 +90,14 @@ class Users
         return $stmt->execute();
     }
 
-    public function deleteUserDB ($id)
+
+    public function deleteUsers($id)
     {
         $pdo = new Database();
-        $connect = $pdo -> connect();
+        $connect = $pdo -> connectDB();
         $sql = "DELETE FROM users WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        return $stmt->execute();
     }
 }

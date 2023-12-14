@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\model;
 
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class Contacts
@@ -15,12 +16,17 @@ class Contacts
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllContacts()
+    public function getAllContacts(Pagination $pagination)
     {
+
+        list($limit, $offset) = $pagination->getItemsPerPage();
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT contacts.id, contacts.name, contacts.company_id, companies.name as company_name, contacts.email, contacts.phone, contacts.created_at, contacts.updated_at FROM contacts INNER JOIN companies on contacts.company_id = companies.id";
+        $sql = "SELECT contacts.id, contacts.name, contacts.company_id, companies.name as company_name, contacts.email, contacts.phone, contacts.created_at, contacts.updated_at FROM contacts  INNER JOIN companies on contacts.company_id = companies.id LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $contacts;
@@ -80,13 +86,13 @@ class Contacts
         return $stmt->execute();
     }
 
-    public function deleteContact($id)
+    public function deleteContacts($id)
     {
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "DELETE FROM contacts WHERE id = :id";
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        return $stmt->execute();
     }
 }

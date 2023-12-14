@@ -4,13 +4,21 @@ namespace App\Controllers;
 
 use App\core\Controllers;
 use App\model\Permission;
+use App\Core\Pagination;
+
 
 class PermissionController
 {
     public function Permissions()
     {
+        $currentPage = $_GET['page'] ?? 1;
+        $itemsPerPage = $_GET['itemsPerPage'] ?? 100;
+        $pagination = new Pagination();
+        $pagination->setPage($currentPage);
+        $pagination->setItemsPerPage($itemsPerPage);
+   
         $permission = new Permission();
-        $permission = $permission->getAllPermissions();
+        $permission = $permission->getAllPermissions($pagination);
         header('Content-Type: application/json');
         echo json_encode([
             'status' => 200,
@@ -106,4 +114,6 @@ class PermissionController
             'data' => $data
         ], JSON_PRETTY_PRINT);
     }
+   
+   
 }

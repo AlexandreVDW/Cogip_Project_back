@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\model;
 
 use App\utils\Database;
+use App\Core\Pagination;
 use PDO;
 
 class Permission
@@ -15,12 +16,16 @@ class Permission
         return $date->format('d-m-Y H:i:s');
     }
 
-    public function getAllPermissions()
+    public function getAllPermissions(Pagination $pagination)
     {
+        list($limit, $offset) = $pagination->getItemsPerPage();
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
-        $sql = "SELECT * FROM permissions";
+        $sql = "SELECT * FROM permissions LIMIT :limit OFFSET :offset";
         $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $permissions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $permissions;
