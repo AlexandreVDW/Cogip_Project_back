@@ -129,6 +129,7 @@ class CompaniesController
                 'message' => 'Internal Server Error',
                 'data' => $result
             ], JSON_PRETTY_PRINT);
+            return;
         }
 
         header('Content-Type: application/json');
