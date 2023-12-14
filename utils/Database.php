@@ -19,8 +19,8 @@ class Database
     public function __construct()
     {
         // les deux ligne a commenter pour le deploiement en ligne pour test
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-        $dotenv->load();
+        // $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        // $dotenv->load();
     }
 
     public function connectDB()
