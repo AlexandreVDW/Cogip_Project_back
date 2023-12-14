@@ -6,7 +6,9 @@ namespace App\utils;
 
 use PDO;
 use PDOException;
-use App\utils\Log;
+
+// ligne a commenter pour le deploiement en ligne fonctionnel
+use Dotenv\Dotenv;
 
 class Database 
 {
@@ -15,16 +17,18 @@ class Database
 
     public function __construct()
     {
-        $this->log = new Log();
+        // les deux ligne a commenter pour le deploiement en ligne encore oublier
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
     }
 
     public function connectDB()
     {
         try {
             $this->pdo = new PDO(
-                "{$this->log->host};{$this->log->db};charset=utf8",
-                $this->log->user, 
-                $this->log->pass
+                "{$_ENV['DB_HOST']};{$_ENV['DB_NAME']};charset=utf8",
+                $_ENV['DB_USER'], 
+                $_ENV['DB_PASS']
             );
             return $this->pdo;
         } catch(Exception $e) {

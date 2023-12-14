@@ -39,8 +39,13 @@ class Companies
         return $companie;
     }
 
-    public function setNewCompanies($name, $type_id, $country, $tva, $created_at, $updated_at)
+    public function setNewCompanies($name, $type_id, $country, $tva)
     {
+        $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+        $type_id = htmlspecialchars($type_id, ENT_QUOTES, 'UTF-8');
+        $country = htmlspecialchars($country, ENT_QUOTES, 'UTF-8');
+        $tva = htmlspecialchars($tva, ENT_QUOTES, 'UTF-8');
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "INSERT INTO companies (name, type_id, country, tva, created_at, updated_at) VALUES (:name, :type_id, :country, :tva, :created_at, :updated_at)";
@@ -49,11 +54,19 @@ class Companies
         $stmt->bindValue(':type_id', $type_id);
         $stmt->bindValue(':country', $country);
         $stmt->bindValue(':tva', $tva);
-        $stmt->execute();
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':created_at', $currentDateTime);
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
-    public function updateCompanies($id, $name, $type_id, $country, $tva, $updated_at)
+    public function updateCompanies($id, $name, $type_id, $country, $tva)
     {
+        $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+        $type_id = htmlspecialchars($type_id, ENT_QUOTES, 'UTF-8');
+        $country = htmlspecialchars($country, ENT_QUOTES, 'UTF-8');
+        $tva = htmlspecialchars($tva, ENT_QUOTES, 'UTF-8');
+
         $pdo = new Database();
         $connect = $pdo->connectDB();
         $sql = "UPDATE companies SET name = :name, type_id = :type_id, country = :country, tva = :tva, updated_at = :updated_at WHERE id = :id";
@@ -63,17 +76,9 @@ class Companies
         $stmt->bindValue(':type_id', $type_id);
         $stmt->bindValue(':country', $country);
         $stmt->bindValue(':tva', $tva);
-        $stmt->bindValue(':updated_at', $updated_at);
-        $stmt->execute();
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
-    public function deleteCompanies($id)
-    {
-        $pdo = new Database();
-        $connect = $pdo->connectDB();
-        $sql = "DELETE FROM companies WHERE id = :id";
-        $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
-    }
 }

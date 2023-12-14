@@ -38,28 +38,34 @@ class Permission
         return $permission;
     }
 
-    public function setNewPermission ()
+    public function setNewPermission ($name)
     {
+        $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "INSERT INTO permissions (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)";
         $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':name', $this->name);
-        $stmt->bindValue(':created_at', $this->created_at);
-        $stmt->bindValue(':updated_at', $this->updated_at);
-        $stmt->execute();
+        $stmt->bindValue(':name', $name);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':created_at', $currentDateTime);
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
-    public function updatePermission ($id, $name, $updated_at)
+    public function updatePermission ($id, $name)
     {
+        $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+
         $pdo = new Database();
         $connect = $pdo -> connectDB();
         $sql = "UPDATE permissions SET name = :name, updated_at = :updated_at WHERE id = :id";
         $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':name', $this->name);
-        $stmt->bindValue(':updated_at', $this->updated_at);
         $stmt->bindValue(':id', $id);
-        $stmt->execute();
+        $stmt->bindValue(':name', $name);
+        $currentDateTime = date('Y-m-d H:i:s');
+        $stmt->bindValue(':updated_at', $currentDateTime);
+        return $stmt->execute();
     }
 
     public function deletePermission($id)

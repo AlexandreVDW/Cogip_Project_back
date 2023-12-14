@@ -15,6 +15,18 @@ use App\Controllers\RolesPermissionController;
 
 $router = new Router();
 
+$router->options('/.*', function() {
+    header("Access-Control-Allow-Origin: *"); // replace '*' with your origin as needed
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+});
+
+$router->before('GET|POST|PUT|DELETE', '/.*', function() {
+    header("Access-Control-Allow-Origin: *"); // replace '*' with your origin as needed
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+});
+
 $router->get('/', function() {
     (new HomeController)->index();
 });
@@ -63,12 +75,12 @@ $router->mount('/contacts', function () use ($router) {
     
         // will result in '/contacts/id'
         $router->post('/', function () {
-            (new ContactsController)->setNewContacts();
+            (new ContactsController)->setNewContact();
         });
     
         // will result in '/contacts/id'
         $router->put('/(\d+)', function ($id) {
-            (new ContactsController)->updateContacts($id);
+            (new ContactsController)->updateContact($id);
         });
     
         // will result in '/contacts/id'
@@ -92,7 +104,7 @@ $router->mount('/users', function () use ($router) {
     
         // will result in '/users/id'
         $router->post('/', function () {
-            (new UserController)->setNewUsers();
+            (new UserController)->setNewUser();
         });
     
         // will result in '/users/id'
