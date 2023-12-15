@@ -84,7 +84,7 @@ class Companies
         $stmt->bindValue(':updated_at', $currentDateTime);
         return $stmt->execute();
     }
- public function deleteCompanies($id)
+ /*public function deleteCompanies($id)
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
@@ -92,5 +92,30 @@ class Companies
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
-    }
+    }*/
+
+    public function deleteAll($id)
+{
+    $pdo = new Database();
+    $connect = $pdo->connectDB();
+
+    // Delete from invoices
+    $sql = "DELETE FROM invoices WHERE id_company = :id";
+    $stmt = $connect->prepare($sql);
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+
+    // Delete from contacts
+    $sql = "DELETE FROM contacts WHERE company_id = :id";
+    $stmt = $connect->prepare($sql);
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+
+    // Delete from companies
+    $sql = "DELETE FROM companies WHERE id = :id";
+    $stmt = $connect->prepare($sql);
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+}
+
 }

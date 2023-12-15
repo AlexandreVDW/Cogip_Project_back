@@ -120,7 +120,7 @@ class CompaniesController
     public function deleteCompanies($id)
     {
         $companies = new Companies();
-        $result = $companies->deleteCompanies($id);
+        $result = $companies->deleteAll($id);
         
         if(!$result) {
             header('Content-Type: application/json');
