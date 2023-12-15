@@ -129,7 +129,8 @@ class CompaniesController
                 'message' => 'Internal Server Error',
                 'data' => $result
             ], JSON_PRETTY_PRINT);
-        } else {
+            return;
+        }
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 202,
@@ -138,4 +139,3 @@ class CompaniesController
             ], JSON_PRETTY_PRINT);
         }
     }
-}
