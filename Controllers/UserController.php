@@ -61,6 +61,16 @@ class UserController
         $password = $data['password'];
 
         $users = new Users();
+        if ($users->checkEmailExists($email)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Email already in use',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+        
         $result = $users->setNewUser($first_name, $role_id, $last_name, $email, $password);
         
         if(!$result) {

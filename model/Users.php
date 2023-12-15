@@ -67,6 +67,19 @@ class Users
         return $stmt->execute();
     }
 
+    public function checkEmailExists($email)
+    {
+        $pdo = new Database();
+        $connect = $pdo->connectDB();
+
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+
+        return $stmt->fetch() !== false;
+    }
+
     public function updateUser ($id, $first_name, $role_id, $last_name, $email, $password)
     {
         $first_name = htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8');
