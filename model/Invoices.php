@@ -61,7 +61,7 @@ class Invoices
         return $stmt->execute();
     }
 
-    public function updateInvoices ($id, $ref, $id_company, $due_at)
+    public function updateInvoices ($id, $ref, $id_company)
     {
         $ref = htmlspecialchars($ref, ENT_QUOTES, 'UTF-8');
         $id_company = filter_var($id_company, FILTER_SANITIZE_NUMBER_INT);
@@ -74,7 +74,8 @@ class Invoices
         $stmt->bindValue(':id_company', $id_company);
         $currentDateTime = date('Y-m-d H:i:s');
         $stmt->bindValue(':updated_at', $currentDateTime);
-        $stmt->bindValue(':due_at', $due_at);
+        $dueDateTime = date('Y-m-d H:i:s', strtotime('+30 days'));
+        $stmt->bindValue(':due_at', $dueDateTime);
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
