@@ -113,4 +113,15 @@ class Users
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
+
+    public function countUsers()
+    {
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
+        $sql = "SELECT COUNT(*) FROM users";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return $count;
+    }
 }

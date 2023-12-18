@@ -129,6 +129,11 @@ $router->mount('/users', function () use ($router) {
         $router->delete('/(\d+)', function ($id) {
             (new UserController)->deleteUsers($id);
         });
+
+        // will result in '/users/count'
+        $router->get('/count', function () {
+            (new UserController)->countUsers();
+        });
 });
 
 // Subrouting
