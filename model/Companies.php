@@ -46,7 +46,7 @@ class Companies
     public function setNewCompanies($name, $type_id, $country, $tva)
     {
         $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-        $type_id = htmlspecialchars($type_id, ENT_QUOTES, 'UTF-8');
+        $type_id = filter_var($type_id, FILTER_VALIDATE_INT);
         $country = htmlspecialchars($country, ENT_QUOTES, 'UTF-8');
         $tva = htmlspecialchars($tva, ENT_QUOTES, 'UTF-8');
 
@@ -67,7 +67,7 @@ class Companies
     public function updateCompanies($id, $name, $type_id, $country, $tva)
     {
         $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-        $type_id = htmlspecialchars($type_id, ENT_QUOTES, 'UTF-8');
+        $type_id = filter_var($type_id, FILTER_VALIDATE_INT);
         $country = htmlspecialchars($country, ENT_QUOTES, 'UTF-8');
         $tva = htmlspecialchars($tva, ENT_QUOTES, 'UTF-8');
 
