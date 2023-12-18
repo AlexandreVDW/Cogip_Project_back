@@ -61,6 +61,11 @@ $router->mount('/invoices', function () use ($router) {
     $router->delete('/(\d+)', function ($id) {
         (new InvoicesController)->deleteInvoices($id);
     });
+
+    // will result in '/invoices/count'
+    $router->get('/count', function () {
+        (new InvoicesController)->countInvoices();
+    });
 });
 
 // Subrouting

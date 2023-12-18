@@ -135,4 +135,27 @@ class InvoicesController
             'data' => $result
         ], JSON_PRETTY_PRINT);
     }
+
+    public function countInvoices()
+    {
+        $invoices = new Invoices();
+        $result = $invoices->countInvoices();
+        
+        if(!$result) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => 200,
+            'message' => 'OK',
+            'data' => $result
+        ], JSON_PRETTY_PRINT);
+    }
 }

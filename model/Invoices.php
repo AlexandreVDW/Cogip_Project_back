@@ -89,5 +89,15 @@ class Invoices
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
+
+    public function countInvoices()
+    {
+        $pdo = new Database();
+        $conn = $pdo->connectDB();
+        $sql = "SELECT COUNT(*) FROM invoices";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;}
    
 }
