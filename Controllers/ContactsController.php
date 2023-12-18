@@ -121,6 +121,7 @@ class ContactsController
             'data' => $data
         ], JSON_PRETTY_PRINT);
     }
+
     public function deleteContacts($id)
     {
         $contacts = new Contacts();
@@ -140,6 +141,29 @@ class ContactsController
         echo json_encode([
             'status' => 202,
             'message' => 'Deleted',
+            'data' => $result
+        ], JSON_PRETTY_PRINT);
+    }
+
+    public function countContacts()
+    {
+        $contacts = new Contacts();
+        $result = $contacts->countContacts();
+        
+        if(!$result) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $result
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => 200,
+            'message' => 'OK',
             'data' => $result
         ], JSON_PRETTY_PRINT);
     }

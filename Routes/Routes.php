@@ -90,6 +90,11 @@ $router->mount('/contacts', function () use ($router) {
         $router->delete('/(\d+)', function ($id) {
             (new ContactsController)->deleteContacts($id);
         });
+
+        // will result in '/contacts/count'
+        $router->get('/count', function () {
+            (new ContactsController)->countContacts();
+        });
 });
 
 // Subrouting
@@ -147,6 +152,11 @@ $router->mount('/companies', function () use ($router) {
     // will result in '/companies/id'
     $router->delete('/(\d+)', function ($id) {
         (new CompaniesController)->deleteCompanies($id);
+    });
+
+    // will result in '/companies/count'
+    $router->get('/count', function () {
+        (new CompaniesController)->countCompanies();
     });
 });
 

@@ -95,4 +95,14 @@ class Contacts
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
+
+    public function countContacts()
+    {
+        $pdo = new Database();
+        $connect = $pdo -> connectDB();
+        $sql = "SELECT COUNT(*) FROM contacts";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return $count;}
 }

@@ -140,4 +140,27 @@ class CompaniesController
                 'data' => $result
             ], JSON_PRETTY_PRINT);
     }
+
+    public function countCompanies()
+    {
+        $companies = new companies();
+        $companies = $companies->countCompanies();
+
+        if(!$companies) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+                'data' => $companies
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => 200,
+            'message' => 'OK',
+            'data' => $companies
+        ], JSON_PRETTY_PRINT);
+    }
 }

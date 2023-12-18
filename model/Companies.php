@@ -108,4 +108,15 @@ class Companies
         $stmtCompany->bindValue(':id', $id);
         return $stmtCompany->execute();
     }
+
+    public function countCompanies()
+    {
+        $pdo = new Database();
+        $connect = $pdo->connectDB();
+        $sql = "SELECT COUNT(*) FROM companies";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return $count;
+    }
 }
