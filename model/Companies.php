@@ -84,6 +84,7 @@ class Companies
         $stmt->bindValue(':updated_at', $currentDateTime);
         return $stmt->execute();
     }
+    
  public function deleteCompanies($id)
     {
         $pdo = new Database();

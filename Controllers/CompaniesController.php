@@ -117,6 +117,7 @@ class CompaniesController
             ], JSON_PRETTY_PRINT);
         }
     }
+    
     public function deleteCompanies($id)
     {
         $companies = new Companies();
