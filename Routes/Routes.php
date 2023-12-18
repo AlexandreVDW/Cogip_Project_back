@@ -13,6 +13,9 @@ use App\Controllers\PermissionController;
 use App\Controllers\TypesController;
 use App\Controllers\RolesPermissionController;
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
 $router = new Router();
 
 $router->options('/.*', function() {
@@ -260,6 +263,19 @@ $router->mount('/rolespermission', function () use ($router) {
     // will result in '/rolespermission/id'
     $router->delete('/(\d+)', function ($id) {
         (new RolesPermissionController)->deleteRolesPermission($id);
+    });
+});
+
+$router->mount('/auth', function () use ($router) {
+    $router->post('/login', function (Request $request, Response $response) {
+        $user_id = 1; // assuming the user is authenticated
+        $secret_key = 'keller_team_3';
+    
+        $jwt_token = generate_jwt_token($user_id, $secret_key);
+    
+        $response_data = array('token' => $jwt_token);
+        $response->getBody()->write(json_encode($response_data));
+        return $response->withHeader('Content-Type', 'application/json');
     });
 });
 
