@@ -45,7 +45,7 @@ class ContactsController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['name'], $data['company_id'], $data['email'], $data['phone'])) {
+        if ($data === null || !isset($data['name'], $data['company_id'], $data['email'], $data['phone']) || empty($data['name']) || empty($data['company_id']) || empty($data['email']) || empty($data['phone'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -86,7 +86,7 @@ class ContactsController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['name'], $data['company_id'], $data['email'], $data['phone'])) {
+        if ($data === null || !isset($data['name'], $data['company_id'], $data['email'], $data['phone']) || empty($data['name']) || empty($data['company_id']) || empty($data['email']) || empty($data['phone'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,

@@ -45,7 +45,7 @@ class InvoicesController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['ref'], $data['id_company'])) {
+        if ($data === null || !isset($data['ref'], $data['id_company']) || empty($data['ref']) || empty($data['id_company'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -58,6 +58,15 @@ class InvoicesController
         $id_company = $data['id_company'];
         
         $invoices = new Invoices();
+        if($invoices->checkRef($ref)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Ref already in use',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
         $result = $invoices->setNewInvoices($ref, $id_company);
 
             if(!$result) {
@@ -83,7 +92,7 @@ class InvoicesController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['ref'], $data['id_company'])) {
+        if ($data === null || !isset($data['ref'], $data['id_company']) || empty($data['ref']) || empty($data['id_company'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,

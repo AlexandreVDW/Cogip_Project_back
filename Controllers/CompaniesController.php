@@ -43,7 +43,7 @@ class CompaniesController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['name'], $data['type_id'], $data['country'], $data['tva'])) {
+        if ($data === null || !isset($data['name'], $data['type_id'], $data['country'], $data['tva']) || empty($data['name']) || empty($data['type_id']) || empty($data['country']) || empty($data['tva'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -59,6 +59,15 @@ class CompaniesController
         $tva = $data['tva'];
 
         $companies = new Companies();
+        if($companies->checkCompanies($tva)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'tva already in use',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
         $result = $companies->setNewCompanies($name, $type_id, $country, $tva);
         
         if(!$result) {
@@ -83,7 +92,7 @@ class CompaniesController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['name'], $data['type_id'], $data['country'], $data['tva'])) {
+        if ($data === null || !isset($data['name'], $data['type_id'], $data['country'], $data['tva']) || empty($data['name']) || empty($data['type_id']) || empty($data['country']) || empty($data['tva'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
