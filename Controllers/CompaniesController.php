@@ -59,6 +59,15 @@ class CompaniesController
         $tva = $data['tva'];
 
         $companies = new Companies();
+        if($companies->checkCompanies($tva)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'tva already in use',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
         $result = $companies->setNewCompanies($name, $type_id, $country, $tva);
         
         if(!$result) {

@@ -58,6 +58,15 @@ class InvoicesController
         $id_company = $data['id_company'];
         
         $invoices = new Invoices();
+        if($invoices->checkRef($ref)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Ref already in use',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
         $result = $invoices->setNewInvoices($ref, $id_company);
 
             if(!$result) {
