@@ -93,11 +93,23 @@ class Invoices
     public function countInvoices()
     {
         $pdo = new Database();
-        $conn = $pdo->connectDB();
+        $connect = $pdo->connectDB();
         $sql = "SELECT COUNT(*) FROM invoices";
-        $stmt = $conn->prepare($sql);
+        $stmt = $connect->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchColumn();
         return $result;
+    }
+
+    public function checkRef($ref)
+    {
+        $pdo = new Database();
+        $connect = $pdo->connectDB();
+        $sql = "SELECT ref FROM invoices WHERE ref = :ref";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':ref', $ref);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result !== false;
     }
 }
