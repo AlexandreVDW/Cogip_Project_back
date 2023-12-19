@@ -98,6 +98,6 @@ class Invoices
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchColumn();
-        return $result;}
-   
+        return $result;
+    }
 }

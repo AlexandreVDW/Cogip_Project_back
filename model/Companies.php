@@ -119,4 +119,17 @@ class Companies
         $count = $stmt->fetchColumn();
         return $count;
     }
+
+    public function checkCompanies($tva) {
+        $pdo = new Database();
+        $conn = $pdo->connectDB();
+        $sql = "SELECT * FROM companies WHERE tva = :tva";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':tva', $tva);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Si un résultat est retourné, alors une entreprise avec ce tva existe déjà
+        return $result !== false;
+    }
 }
