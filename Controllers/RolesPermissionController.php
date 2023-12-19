@@ -43,7 +43,7 @@ class RolesPermissionController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
         
-        if ($data === null || !isset($data['permission_id'], $data['role_id'])) {
+        if ($data === null || !isset($data['permission_id'], $data['role_id']) || empty($data['permission_id']) || empty($data['role_id'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -82,7 +82,7 @@ class RolesPermissionController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
         
-        if ($data === null || !isset($data['permission_id'], $data['role_id'])) {
+        if ($data === null || !isset($data['permission_id'], $data['role_id']) || empty($data['permission_id']) || empty($data['role_id'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,

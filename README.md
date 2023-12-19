@@ -60,6 +60,15 @@ https://cogip-990e44950882.herokuapp.com/types?page=X&itemsPerPage=X
 https://cogip-990e44950882.herokuapp.com/permissions?page=X&itemsPerPage=X
 ``` 
 
+To GET the count of the data, you can use the following routes:
+
+```
+https://cogip-990e44950882.herokuapp.com/invoices/count
+https://cogip-990e44950882.herokuapp.com/companies/count
+https://cogip-990e44950882.herokuapp.com/contacts/count
+https://cogip-990e44950882.herokuapp.com/users/count
+```
+
 ## Contributors
 
 - [Alexandre VDW](https://github.com/AlexandreVDW)
