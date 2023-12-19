@@ -44,7 +44,7 @@ class UserController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['first_name'], $data['role_id'], $data['last_name'], $data['email'], $data['password'])) {
+        if ($data === null || !isset($data['first_name'], $data['role_id'], $data['last_name'], $data['email'], $data['password']) || empty($data['first_name']) || empty($data['role_id']) || empty($data['last_name']) || empty($data['email']) || empty($data['password'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -96,7 +96,7 @@ class UserController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['first_name'], $data['role_id'], $data['last_name'], $data['email'], $data['password'])) {
+        if ($data === null || !isset($data['first_name'], $data['role_id'], $data['last_name'], $data['email'], $data['password']) || empty($data['first_name']) || empty($data['role_id']) || empty($data['last_name']) || empty($data['email']) || empty($data['password'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,

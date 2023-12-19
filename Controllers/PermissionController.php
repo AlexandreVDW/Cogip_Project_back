@@ -44,7 +44,7 @@ class PermissionController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['name'])) {
+        if ($data === null || !isset($data['name']) || empty($data['name'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -82,7 +82,7 @@ class PermissionController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['name'])) {
+        if ($data === null || !isset($data['name']) || empty($data['name'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,

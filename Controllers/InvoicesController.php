@@ -45,7 +45,7 @@ class InvoicesController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['ref'], $data['id_company'])) {
+        if ($data === null || !isset($data['ref'], $data['id_company']) || empty($data['ref']) || empty($data['id_company'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
@@ -92,7 +92,7 @@ class InvoicesController
         $jsonBody = file_get_contents("php://input");
         $data = json_decode($jsonBody, true);
 
-        if ($data === null || !isset($data['ref'], $data['id_company'])) {
+        if ($data === null || !isset($data['ref'], $data['id_company']) || empty($data['ref']) || empty($data['id_company'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 400,
