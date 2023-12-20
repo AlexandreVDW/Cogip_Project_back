@@ -2,7 +2,45 @@
 
 ## Description
 
-This is the back-end of the Cogip project. It is a project for the BeCode training. The goal is to create a website for a fictive company called Cogip. The website will be used by the employees to manage the company's data. And we backend developers will create an api to be use by the front end.
+This is the back-end of the Cogip project. It is a project for the BeCode training. The goal is to create a website for a fictive company called Cogip. The website will be used by the employees to manage the company's data. And we backend developers will create an api to be use by the front end. 
+
+If you want get a visuel of the two front group that work with our api :
+
+### First group : 
+[Robpin Piot](https://github.com/robpiot)
+[Rosalie Boulard](https://github.com/RosaBld)
+[Carole Gerard](https://github.com/Carole-GRD)
+
+[Repository](https://github.com/Robpiot/COGIP-GP3)
+[Deploy Project](https://6582c6477f821e007a1560e8--eloquent-youtiao-302ec7.netlify.app/)
+
+### Second group : 
+
+[Alexandre Vens](https://github.com/v-alex-dev)
+[Elodie Ali](https://github.com/Taweria)
+
+[Repository](https://github.com/Taweria/Cogip_Project)
+
+## Contributors
+
+- [Alexandre VDW](https://github.com/AlexandreVDW)
+- [Tim Desmet](https://github.com/TimDesmet00)
+- [Okly](https://github.com/Okly2023)
+
+## Learning objectives
+
+- Be able to create a database
+- Be able to create a database schema
+- Be able to create a database connection using PHP PDO
+- Be able to use [Bramus Router](https://github.com/bramus/router) to create routes
+- Be able to use MVC to structure code
+- Be able to make a CRUD in PHP
+- Be able to make a RESTful API
+- Be able to deploy a PHP application
+
+## Deployement
+
+You can find the deploy api [here](https://cogip-990e44950882.herokuapp.com/)
 
 ## Installation
 
@@ -87,22 +125,4 @@ https://cogip-990e44950882.herokuapp.com/companies/count
 https://cogip-990e44950882.herokuapp.com/contacts/count
 https://cogip-990e44950882.herokuapp.com/users/count
 ```
-
-## Contributors
-
-- [Alexandre VDW](https://github.com/AlexandreVDW)
-- [Tim Desmet](https://github.com/TimDesmet00)
-- [Okly](https://github.com/Okly2023)
-
-## Learning objectives
-
-- Be able to create a database
-- Be able to create a database schema
-- Be able to create a database connection using PHP PDO
-- Be able to use [Bramus Router](https://github.com/bramus/router) to create routes
-- Be able to use MVC to structure code
-- Be able to make a CRUD in PHP
-- Be able to make a RESTful API
-- Be able to deploy a PHP application
-
 
