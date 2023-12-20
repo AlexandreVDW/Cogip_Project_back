@@ -6,20 +6,17 @@ This is the back-end of the Cogip project. It is a project for the BeCode traini
 
 If you want get a visuel of the two front group that work with our api :
 
-### First group : 
+### First group : [Repository](https://github.com/Robpiot/COGIP-GP3)
 - [Robpin Piot](https://github.com/robpiot)
 - [Rosalie Boulard](https://github.com/RosaBld)
 - [Carole Gerard](https://github.com/Carole-GRD)
 
-- [Repository](https://github.com/Robpiot/COGIP-GP3)
-- [Deploy Project](https://6582c6477f821e007a1560e8--eloquent-youtiao-302ec7.netlify.app/)
+[Deploy Project](https://6582c6477f821e007a1560e8--eloquent-youtiao-302ec7.netlify.app/)
 
-### Second group : 
+### Second group : [Repository](https://github.com/Taweria/Cogip_Project)
 
 - [Alexandre Vens](https://github.com/v-alex-dev)
 - [Elodie Ali](https://github.com/Taweria)
-
-- [Repository](https://github.com/Taweria/Cogip_Project)
 
 ## Contributors
 
