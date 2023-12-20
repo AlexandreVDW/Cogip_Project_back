@@ -67,14 +67,21 @@ class Users
         return $stmt->execute();
     }
 
-    public function checkEmailExists($email)
+    public function checkEmailExists($email, $id = null)
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
 
         $sql = "SELECT * FROM users WHERE email = :email";
+        if ($id !== null) {
+            $sql .= " AND id != :id";
+        }
+
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':email', $email);
+        if ($id !== null) {
+            $stmt->bindValue(':id', $id);
+        }
         $stmt->execute();
 
         return $stmt->fetch() !== false;

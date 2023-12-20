@@ -105,6 +105,18 @@ class InvoicesController
         $id_company = $data['id_company'];
         
         $invoices = new Invoices();
+
+        // Check if ref already exists
+        if ($invoices->checkRef($ref, $id)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Ref already exists',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
         $result = $invoices->updateInvoices($id, $ref, $id_company);
 
             if(!$result) {

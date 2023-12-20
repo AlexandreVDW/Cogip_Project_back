@@ -101,13 +101,21 @@ class Invoices
         return $result;
     }
 
-    public function checkRef($ref)
+    public function checkRef($ref, $id = null)
     {
         $pdo = new Database();
         $connect = $pdo->connectDB();
+
         $sql = "SELECT ref FROM invoices WHERE ref = :ref";
+        if ($id !== null) {
+            $sql .= " AND id != :id";
+        }
+
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':ref', $ref);
+        if ($id !== null) {
+            $stmt->bindValue(':id', $id);
+        }
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result !== false;

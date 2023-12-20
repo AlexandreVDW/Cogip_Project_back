@@ -120,13 +120,19 @@ class Companies
         return $count;
     }
 
-    public function checkCompanies($tva) {
+    public function checkCompanies($tva, $id = null) {
         $pdo = new Database();
         $connect = $pdo->connectDB();
 
         $sql = "SELECT * FROM companies WHERE tva = :tva";
+        if ($id !== null) {
+            $sql .= " AND id != :id";
+        }
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':tva', $tva);
+        if ($id !== null) {
+            $stmt->bindValue(':id', $id);
+        }
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

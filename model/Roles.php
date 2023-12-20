@@ -82,4 +82,5 @@ class Roles
         $stmt->bindValue(':id', $id);
         $stmt->execute();
     }
+    
 }

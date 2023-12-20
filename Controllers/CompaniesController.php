@@ -108,6 +108,18 @@ class CompaniesController
         $tva = $data['tva'];
 
         $companies = new Companies();
+
+        // Check if tva already exists
+        if ($companies->checkCompanies($tva, $id)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'TVA already exists',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
         $result = $companies->updateCompanies($id, $name, $type_id, $country, $tva);
         
         if(!$result) {

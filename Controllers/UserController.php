@@ -113,6 +113,18 @@ class UserController
         $password = $data['password'];
 
         $users = new Users();
+
+        // Check if email already exists
+        if ($users->checkEmailExists($email, $id)) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 400,
+                'message' => 'Email already exists',
+                'data' => $data
+            ], JSON_PRETTY_PRINT);
+            return;
+        }
+
         $result = $users->updateUser($id, $first_name, $role_id, $last_name, $email, $password);
         
         if(!$result) {
