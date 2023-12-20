@@ -4,23 +4,6 @@
 
 This is the back-end of the Cogip project. It is a project for the BeCode training. The goal is to create a website for a fictive company called Cogip. The website will be used by the employees to manage the company's data. And we backend developers will create an api to be use by the front end. 
 
-If you want get a visuel of the two front group that work with our api :
-
-### First group : 
-- [Robpin Piot](https://github.com/robpiot)
-- [Rosalie Boulard](https://github.com/RosaBld)
-- [Carole Gerard](https://github.com/Carole-GRD)
-
-[Repository link](https://github.com/Robpiot/COGIP-GP3)
-[Deploy Project](https://6582c6477f821e007a1560e8--eloquent-youtiao-302ec7.netlify.app/)
-
-### Second group : 
-
-- [Alexandre Vens](https://github.com/v-alex-dev)
-- [Elodie Ali](https://github.com/Taweria)
-
-[Repository link](https://github.com/Taweria/Cogip_Project)
-
 ## Contributors
 
 - [Alexandre VDW](https://github.com/AlexandreVDW)
@@ -125,4 +108,25 @@ https://cogip-990e44950882.herokuapp.com/companies/count
 https://cogip-990e44950882.herokuapp.com/contacts/count
 https://cogip-990e44950882.herokuapp.com/users/count
 ```
+
+## Front part of the project :
+
+If you want get a visuel of the two front group that work with our api :
+
+### First group : 
+- [Robpin Piot](https://github.com/robpiot)
+- [Rosalie Boulard](https://github.com/RosaBld)
+- [Carole Gerard](https://github.com/Carole-GRD)
+
+[Repository link](https://github.com/Robpiot/COGIP-GP3)
+[Deploy Project](https://6582c6477f821e007a1560e8--eloquent-youtiao-302ec7.netlify.app/)
+
+### Second group : 
+
+- [Alexandre Vens](https://github.com/v-alex-dev)
+- [Elodie Ali](https://github.com/Taweria)
+
+[Repository link](https://github.com/Taweria/Cogip_Project)
+
+
 
