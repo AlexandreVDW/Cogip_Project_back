@@ -45,6 +45,8 @@ DB_PASSWORD="your_password"
 
 ### To use the GET/POST, you can use the following routes:
 
+#### For the invoices :
+
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
 | /invoices | GET     | -                       | Récupère toutes les factures |
@@ -54,6 +56,8 @@ DB_PASSWORD="your_password"
 | /invoices/{id} | DELETE | -                     | Supprime une facture spécifique |
 | /invoices/count | GET | -                       | Récupère le nombre total de factures |
 | /invoices?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
+
+#### For the contacts :
 
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
@@ -65,6 +69,8 @@ DB_PASSWORD="your_password"
 | /contacts/count | GET | -                       | Récupère le nombre total de contacts |
 | /contacts?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
+#### For the companies :
+
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
 | /companies | GET     | -                       | Récupère toutes les entreprises |
@@ -74,6 +80,8 @@ DB_PASSWORD="your_password"
 | /companies/{id} | DELETE | -                    | Supprime une entreprise spécifique |
 | /companies/count | GET | -                       | Récupère le nombre total d'entreprises |
 | /companies?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
+
+#### For the users :
 
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
@@ -85,6 +93,8 @@ DB_PASSWORD="your_password"
 | /users/count | GET | -                       | Récupère le nombre total d'utilisateurs |
 | /users?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
+#### For the roles :
+
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
 | /roles   | GET     | -                       | Récupère tous les rôles |
@@ -94,6 +104,8 @@ DB_PASSWORD="your_password"
 | /roles/{id} | DELETE | -                    | Supprime un rôle spécifique |
 | /roles/count | GET | -                       | Récupère le nombre total de rôles |
 | /roles?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
+
+#### For the types :
 
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
@@ -105,6 +117,8 @@ DB_PASSWORD="your_password"
 | /types/count | GET | -                       | Récupère le nombre total de types |
 | /types?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
+#### For the permissions :
+
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
 | /permissions | GET     | -                       | Récupère toutes les permissions |
@@ -114,6 +128,8 @@ DB_PASSWORD="your_password"
 | /permissions/{id} | DELETE | -                    | Supprime une permission spécifique |
 | /permissions/count | GET | -                       | Récupère le nombre total de permissions |
 | /permissions?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
+
+#### For the rolespermissions :
 
 | Endpoint | Méthode | Paramètres (pour POST) | Description |
 |----------|---------|-------------------------|-------------|
