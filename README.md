@@ -45,69 +45,85 @@ DB_PASSWORD="your_password"
 
 ### To use the GET/POST, you can use the following routes:
 
-```
-https://cogip-990e44950882.herokuapp.com/invoices
-For POST you need (ref, id_company) in the form
-https://cogip-990e44950882.herokuapp.com/contacts
-For POST you need (name, company_id, email, phone) in the form
-https://cogip-990e44950882.herokuapp.com/companies
-For POST you need (type_id, country, tva) in the form
-https://cogip-990e44950882.herokuapp.com/users
-For POST you need (first_name, last_name, role_id, email, password) in the form
-https://cogip-990e44950882.herokuapp.com/roles
-For POST you need (name) in the form
-https://cogip-990e44950882.herokuapp.com/types
-For POST you need (name) in the form
-https://cogip-990e44950882.herokuapp.com/permissions
-For POST you need (name) in the form
-https://cogip-990e44950882.herokuapp.com//rolespermission
-For POST you need (role_id, permission_id) in the form
-```
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /invoices | GET     | -                       | Récupère toutes les factures |
+| /invoices | POST    | ref, id_company         | Crée une nouvelle facture |
+| /invoices/{id} | GET | -                       | Récupère une facture spécifique |
+| /invoices/{id} | PUT | ref, id_company (sauf la date) | Met à jour une facture spécifique |
+| /invoices/{id} | DELETE | -                     | Supprime une facture spécifique |
+| /invoices/count | GET | -                       | Récupère le nombre total de factures |
+| /invoices?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
-To GET, PUT or DELETE a specific data, you can use the following routes:
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /contacts | GET     | -                       | Récupère tous les contacts |
+| /contacts | POST    | name, company_id, email, phone | Crée un nouveau contact |
+| /contacts/{id} | GET | -                       | Récupère un contact spécifique |
+| /contacts/{id} | PUT | name, company_id, email, phone | Met à jour un contact spécifique |
+| /contacts/{id} | DELETE | -                    | Supprime un contact spécifique |
+| /contacts/count | GET | -                       | Récupère le nombre total de contacts |
+| /contacts?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
-```
-https://cogip-990e44950882.herokuapp.com/invoices/{id}
-For PUT you need (ref, id_company) in the form
-https://cogip-990e44950882.herokuapp.com/contacts/{id}
-For PUT you need (name, company_id, email, phone) in the form
-https://cogip-990e44950882.herokuapp.com/companies/{id}
-For PUT you need (type_id, country, tva) in the form
-https://cogip-990e44950882.herokuapp.com/users/{id}
-For PUT you need (first_name, last_name, role_id, email, password) in the form
-https://cogip-990e44950882.herokuapp.com/roles/{id}
-For PUT you need (name) in the form
-https://cogip-990e44950882.herokuapp.com/types/{id}
-For PUT you need (name) in the form
-https://cogip-990e44950882.herokuapp.com/permissions/{id}
-For PUT you need (name) in the form
-https://cogip-990e44950882.herokuapp.com/rolespermission/{id}
-For PUT you need (role_id, permission_id) in the form
-```
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /companies | GET     | -                       | Récupère toutes les entreprises |
+| /companies | POST    | type_id, country, tva   | Crée une nouvelle entreprise |
+| /companies/{id} | GET | -                       | Récupère une entreprise spécifique |
+| /companies/{id} | PUT | type_id, country, tva   | Met à jour une entreprise spécifique |
+| /companies/{id} | DELETE | -                    | Supprime une entreprise spécifique |
+| /companies/count | GET | -                       | Récupère le nombre total d'entreprises |
+| /companies?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
-careful with the PUT request, you need to send all the data in the form except for the date.
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /users   | GET     | -                       | Récupère tous les utilisateurs |
+| /users   | POST    | first_name, last_name, role_id, email, password | Crée un nouvel utilisateur |
+| /users/{id} | GET | -                       | Récupère un utilisateur spécifique |
+| /users/{id} | PUT | first_name, last_name, role_id, email, password | Met à jour un utilisateur spécifique |
+| /users/{id} | DELETE | -                    | Supprime un utilisateur spécifique |
+| /users/count | GET | -                       | Récupère le nombre total d'utilisateurs |
+| /users?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /roles   | GET     | -                       | Récupère tous les rôles |
+| /roles   | POST    | name                    | Crée un nouveau rôle |
+| /roles/{id} | GET | -                       | Récupère un rôle spécifique |
+| /roles/{id} | PUT | name                    | Met à jour un rôle spécifique |
+| /roles/{id} | DELETE | -                    | Supprime un rôle spécifique |
+| /roles/count | GET | -                       | Récupère le nombre total de rôles |
+| /roles?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
-To GET the data into X pages of X elements, you can use the following routes:
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /types   | GET     | -                       | Récupère tous les types |
+| /types   | POST    | name                    | Crée un nouveau type |
+| /types/{id} | GET | -                       | Récupère un type spécifique |
+| /types/{id} | PUT | name                    | Met à jour un type spécifique |
+| /types/{id} | DELETE | -                    | Supprime un type spécifique |
+| /types/count | GET | -                       | Récupère le nombre total de types |
+| /types?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
-```
-https://cogip-990e44950882.herokuapp.com/invoices?page=X&itemsPerPage=X
-https://cogip-990e44950882.herokuapp.com/companies?page=X&itemsPerPage=X
-https://cogip-990e44950882.herokuapp.com/contacts?page=X&itemsPerPage=X
-https://cogip-990e44950882.herokuapp.com/users?page=X&itemsPerPage=X
-https://cogip-990e44950882.herokuapp.com/roles?page=X&itemsPerPage=X
-https://cogip-990e44950882.herokuapp.com/types?page=X&itemsPerPage=X
-https://cogip-990e44950882.herokuapp.com/permissions?page=X&itemsPerPage=X
-https://cogip-990e44950882.herokuapp.com//rolespermission?page=X&itemsPerPage=X
-```
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /permissions | GET     | -                       | Récupère toutes les permissions |
+| /permissions | POST    | name                    | Crée une nouvelle permission |
+| /permissions/{id} | GET | -                       | Récupère une permission spécifique |
+| /permissions/{id} | PUT | name                    | Met à jour une permission spécifique |
+| /permissions/{id} | DELETE | -                    | Supprime une permission spécifique |
+| /permissions/count | GET | -                       | Récupère le nombre total de permissions |
+| /permissions?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées |
 
-To GET the count of the data, you can use the following routes:
-```
-https://cogip-990e44950882.herokuapp.com/invoices/count
-https://cogip-990e44950882.herokuapp.com/companies/count
-https://cogip-990e44950882.herokuapp.com/contacts/count
-https://cogip-990e44950882.herokuapp.com/users/count
-```
+| Endpoint | Méthode | Paramètres (pour POST) | Description |
+|----------|---------|-------------------------|-------------|
+| /rolespermission | GET     | -                       | Récupère toutes les associations entre rôles et permissions |
+| /rolespermission | POST    | role_id, permission_id | Crée une nouvelle association entre rôle et permission |
+| /rolespermission/{id} | GET | -                       | Récupère une association spécifique entre rôle et permission |
+| /rolespermission/{id} | PUT | role_id, permission_id | Met à jour une association spécifique entre rôle et permission |
+| /rolespermission/{id} | DELETE | -                    | Supprime une association spécifique entre rôle et permission |
+| /rolespermission/count | GET | -                       | Récupère le nombre total d'associations entre rôles et permissions |
+| /rolespermission?page=X&itemsPerPage=X | GET | -       | Récupère les données paginées d'associations entre rôles et permissions |
 
 ## Front part of the project :
 
